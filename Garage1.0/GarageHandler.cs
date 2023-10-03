@@ -1,10 +1,10 @@
 ﻿namespace Garage1._0
 {
-    internal class Handler
+    internal class GarageHandler
     {
         private Garage<IVehicle> garage;
 
-        public Handler(int capacity)
+        public GarageHandler(int capacity)
         {
             garage = new Garage<IVehicle>(capacity);
         }

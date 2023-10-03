@@ -43,6 +43,28 @@ namespace Garage1._0
             }
         }
 
+        public static int SetIntmember(string InputRules, Func<int, bool> condition)
+        {
+            int vehicleParameter = 0;//Quickfix?
+            UI.PrintData($"{InputRules}");
+            bool valid = false;
+            while (valid == false)
+            {
+                string Input = UI.UserInput();
+                int result;
+                if (int.TryParse(Input, out result) && condition(result))
+                {
+                    vehicleParameter = result;
+                    valid = true;
+                }
+                else
+                {
+                    UI.PrintData($"{InputRules}");
+                }
+            }
+            return vehicleParameter;
+        }
+
         public static void SetStringmember(string vehicleParameter, string VehicleInputRules, Func<string,bool> condition)
         {
             ConsoleUI.PrintData($" Enter {vehicleParameter}:");

@@ -56,9 +56,9 @@ namespace Garage1._0
             get => numberOfWheels;
             protected set
             {
-                if (value < 50)
+                if (value <= 50 && value >= 0)
                 {
-                    throw new IndexOutOfRangeException("Number of wheels exceeds the number of wheels for vehicles");
+                    throw new IndexOutOfRangeException("Number of wheels must be within range 0 to 50");
                 }
                 numberOfWheels = value;
             }

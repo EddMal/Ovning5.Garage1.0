@@ -33,7 +33,7 @@ namespace Garage1._0
 
         public Garage(int capacity)
         {
-               slots = new T[capacity]; 
+            slots = new T[capacity]; 
         }
 
         internal void Park(T vehicle)
