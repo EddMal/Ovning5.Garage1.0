@@ -25,11 +25,11 @@ namespace Garage1._0
 
         public static void SetIntmember( int vehicleParameter, string VehicleInputRules, Func<int, bool> condition)
         {
-            ConsoleUI.PrintData($"{VehicleInputRules}");
+            UI.PrintData($"{VehicleInputRules}");
             bool valid = false;
             while (valid == false)
             {
-                string Input = ConsoleUI.UserInput();
+                string Input = UI.UserInput();
                 int result;
                 if (int.TryParse(Input, out result) && condition(result))
                 {
@@ -38,7 +38,7 @@ namespace Garage1._0
                 }
                 else
                 {
-                    ConsoleUI.PrintData($"{VehicleInputRules}");
+                    UI.PrintData($"{VehicleInputRules}");
                 }
             }
         }
@@ -46,10 +46,10 @@ namespace Garage1._0
         public static void SetStringmember(string vehicleParameter, string VehicleInputRules, Func<string,bool> condition)
         {
             ConsoleUI.PrintData($" Enter {vehicleParameter}:");
-            var Input = ConsoleUI.UserInput();
+            var Input = UI.UserInput();
             if (condition(Input))
             {
-                vehicleParameter = ConsoleUI.UserInput();
+                vehicleParameter = UI.UserInput();
             }
             else
             {

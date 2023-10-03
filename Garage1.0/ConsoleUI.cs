@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-    internal interface ConsoleUI
+    public interface ConsoleUI
     {
         public static void PrintData(string message)
         {

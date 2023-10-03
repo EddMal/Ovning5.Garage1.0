@@ -9,7 +9,7 @@ namespace Garage1._0
 {
     internal interface IVehicle
     {
-        void CreateVehicle(string color,string Type, string registrationNumber, int numberOfWheels);
+         VehicleAttribute VehicleAttribute { get; set; }
 
 
     }
