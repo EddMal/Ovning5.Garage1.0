@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,8 @@ namespace Garage1._0
         private string type;
         private string registrationNumber;
         private int numberOfWheels;
-
+        public virtual object[] vehicleAttributes => new object[] { color, type, registrationNumber, numberOfWheels };
+    
         public string Color 
         {
             get { return color; }
@@ -62,13 +64,16 @@ namespace Garage1._0
                 numberOfWheels = value;
             }
         }
+
+
         public virtual void CreateVehicle(string color, string type, string registrationNumber, int numberOfWheels)
         {
-            Validate.Input(color, type, registrationNumber, numberOfWheels);
-            Color = color;
-            Type = type;
-            RegistrationNumber = registrationNumber;
-            NumberOfWheels = numberOfWheels;
+            //Validate.SetStringmember(Color, "Must be entered in numbers and be less than 50", (valid) => { return true ? valid < 50 : false; });
+            //color = Color;
+            //type = Type;
+            //registrationNumber = RegistrationNumber;
+            Validate.SetIntmember(NumberOfWheels, "Enter number of wheels for vehicle. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 : false; });
+            numberOfWheels = NumberOfWheels;
 
         }
 

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-    internal interface ConsoleUI : UserInterface
+    internal interface ConsoleUI
     {
-        public virtual void PrintData(string message)
+        public static void PrintData(string message)
         {
-            Console.WriteLine("message");
+            Console.WriteLine($"{message}");
         }
 
-        public virtual string UserInput() 
+        public static string UserInput() 
         {
             return Console.ReadLine();
         }

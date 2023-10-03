@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-     internal interface UserInterface
-    {
-         void PrintData<T>(T);
+//     public interface UI:ConsoleUI //fix 
+//    {
+//         void PrintData<T>(T output);
 
-         T UserInput<T>();
-    }
+//         T UserInput<T>();
+//    }
 }
