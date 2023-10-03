@@ -7,6 +7,7 @@
         public GarageHandler(int capacity)
         {
             garage = new Garage<IVehicle>(capacity);
+            UI.PrintData($"New garage created with the capacaty of {capacity} slots.");
         }
 
         internal void Park(IVehicle v)

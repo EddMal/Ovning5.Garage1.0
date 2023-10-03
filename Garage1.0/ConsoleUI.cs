@@ -8,6 +8,7 @@ namespace Garage1._0
 {
     public interface ConsoleUI
     {
+        //Change name  or bridge with function for file output 
         public static void PrintData(string message)
         {
             Console.WriteLine($"{message}");
