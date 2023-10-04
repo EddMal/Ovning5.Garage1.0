@@ -15,11 +15,12 @@ namespace Garage1._0
         //private int numberOfWheels;
         public VehicleProperties VehicleAttribute { get; set; }
 
-        public Vehicle(VehicleProperties vehicleAttribute)
+        public Vehicle(VehicleProperties vehicleProperties)
         {
-            VehicleAttribute = vehicleAttribute;
+            VehicleAttribute = vehicleProperties;
         }
         
+        // Is this not used yet? if not remove.
         public Vehicle( string color,  string type,  string registrationNumber,  int numberOfWheels, int numberOfSeats)
         {
             var vehicleAttribute = new VehicleProperties()
@@ -103,7 +104,7 @@ namespace Garage1._0
 
     internal class Car : Vehicle
     {
-        public Car(VehicleProperties attribute) : base(attribute)
+        public Car(VehicleProperties vehicleProperties) : base(vehicleProperties)
         {
             
         }

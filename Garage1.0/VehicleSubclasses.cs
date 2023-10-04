@@ -15,7 +15,10 @@ namespace Garage1._0
             
             VehicleProperties IVehicle.VehicleAttribute { get; set; }
 
-            public Car() { }:Base;
+            public Car(VehicleProperties vehicleProperties) : base(vehicleProperties)
+            { 
+            
+            }
         }
     }
 }

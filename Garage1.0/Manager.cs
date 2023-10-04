@@ -18,7 +18,7 @@ namespace Garage1._0
         internal void Run()
         {
             //Ask for capacity
-            Menu();
+            //Menu();
             //Show main meny
 
             //Act

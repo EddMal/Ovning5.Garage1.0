@@ -77,4 +77,5 @@ namespace Garage1._0
                 numberOfSeats = value;
             }
         }
+    }
 }

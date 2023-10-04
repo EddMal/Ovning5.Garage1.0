@@ -39,7 +39,7 @@ namespace Garage1._0
             }
             set
             {
-                if (value is null)//value is '-' or '+')
+                if (value is ' ')//value is '-' or '+')
                 {
                     throw new ArgumentException($"Error: Faulty input: \"{value}\", input must consist of a character.");
                 }
@@ -65,43 +65,43 @@ namespace Garage1._0
                 switch (SelectAction)
                 {
                     case '1':
-                        garageInput.Add(Input);
+                        //garageInput.Add(Input);
                         UI.PrintData($"Added \"{Input}\" to the Garage.");
                         break;
                     case '2':
                         bool inputFound = false;
 
-                        foreach (var item in garageInput)
-                        {
-                            //Removes one item of input-name, if there are more members with the same name they will remain on the list.
-                            if (Input == item)
-                            {
-                                garageInput.Remove(Input);
-                                inputFound = true;
-                                UI.PrintData($"Removed \"{Input}\" from the list.");
-                                break;
-                            }
-                        }
+                        //foreach (var item in garageInput)
+                        //{
+                        //    //Removes one item of input-name, if there are more members with the same name they will remain on the list.
+                        //    if (Input == item)
+                        //    {
+                        //        garageInput.Remove(Input);
+                        //        inputFound = true;
+                        //        UI.PrintData($"Removed \"{Input}\" from the list.");
+                        //        break;
+                        //    }
+                        //}
                         if (!inputFound)
                         {
                             UI.PrintData($"{Input} does not exist in the garage.:");
                         }
                         break;
                     case '3':
-                        bool inputFound = false;
+                        //bool inputFound = false;
 
-                        foreach (var item in garageInput)
-                        {
-                            //Removes one item of input-name, if there are more members with the same name they will remain on the list.
-                            if (Input == item)
-                            {
-                                garageInput.Remove(Input);
-                                inputFound = true;
-                                UI.PrintData($"Removed \"{Input}\" from the list.");
-                                break;
-                            }
-                        }
-                        if (!inputFound)
+                        //foreach (var item in garageInput)
+                        //{
+                        //    //Removes one item of input-name, if there are more members with the same name they will remain on the list.
+                        //    if (Input == item)
+                        //    {
+                        //        garageInput.Remove(Input);
+                        //        inputFound = true;
+                        //        UI.PrintData($"Removed \"{Input}\" from the list.");
+                        //        break;
+                        //    }
+                        //}
+                        //if (!inputFound)
                         {
                             UI.PrintData($"No vehicle with macthing properties was found in the garage.\nProperties:");
                             //LOOP properties of vehicles
@@ -112,19 +112,19 @@ namespace Garage1._0
                         }
                         break;
                     case '4':
-                        bool inputFound = false;
+                        //bool inputFound = false;
 
-                        foreach (var item in garageInput)
-                        {                           
-                            if (Input == item.)
-                            {
+                        //foreach (var item in garageInput)
+                        //{                           
+                        //    if (Input == item.RegistrationNumber)
+                        //    {
                                 
-                                inputFound = true;
-                                UI.PrintData($"{item} with {nameof(item)} \"{Input}\" is parked on slot {item.slot}");
-                                break;
-                            }
-                        }
-                        if (!inputFound)
+                        //        inputFound = true;
+                        //        UI.PrintData($"{item} with registration number \"{Input}\" is parked on slot {item.slot}");
+                        //        break;
+                        //    }
+                        //}
+                        //if (!inputFound)
                         {
                             UI.PrintData($"{Input} does not exist in the garage.:");
                         }
