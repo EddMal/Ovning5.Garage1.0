@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-    internal class VehicleAttribute
+    internal class VehicleProperties : IVehicleProperties
     {
         private string color;
         private string type;
         private string registrationNumber;
         private int numberOfWheels;
-        public virtual object[] vehicleAttribute => new object[] { color, type, registrationNumber, numberOfWheels };
+        private int numberOfSeats;
+        public virtual object[] vehicleProperties => new object[] { color, type, registrationNumber, numberOfWheels };
 
         public string Color
         {
@@ -63,5 +64,17 @@ namespace Garage1._0
                 numberOfWheels = value;
             }
         }
-    }
+
+        public int NumberOfSeats
+        {
+            get => numberOfSeats;
+            protected set
+            {
+                if (value <= 50 && value >= 0)
+                {
+                    throw new IndexOutOfRangeException("Number of seats must be within range 1 to 10");
+                }
+                numberOfSeats = value;
+            }
+        }
 }

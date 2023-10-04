@@ -14,5 +14,20 @@
         {
             garage.Park(v);
         }
+
+        public virtual VehicleProperties CreateVehicle()
+        {
+            VehicleProperties Vehicleproperties = new VehicleProperties();
+            //Validate.SetString(Color, "Must be entered in numbers and be less than 50", (valid) => { return true ? valid < 50 : false; });
+            //color = Color;
+            //type = Type;
+            //registrationNumber = RegistrationNumber;
+            Validated.SetInt(Vehicleproperties.NumberOfWheels, "Enter the vehicles number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 : false; });
+
+
+            return Vehicleproperties;
+
+
+        }
     }
 }

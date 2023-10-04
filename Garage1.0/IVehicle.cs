@@ -9,7 +9,7 @@ namespace Garage1._0
 {
     internal interface IVehicle
     {
-         VehicleAttribute VehicleAttribute { get; set; }
+         VehicleProperties VehicleAttribute { get; set; }
 
 
     }

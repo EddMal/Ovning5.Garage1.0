@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-    internal class Validate
+    internal class Validated
     {
 
         //public static bool Input<T>( Func<T,bool> ParametersAndConditions)
@@ -23,9 +23,9 @@ namespace Garage1._0
         //    return valid;
         //}
 
-        public static void SetIntmember( int vehicleParameter, string VehicleInputRules, Func<int, bool> condition)
+        public static void SetInt( int internalproperty, string InputRules, Func<int, bool> condition)
         {
-            UI.PrintData($"{VehicleInputRules}");
+            UI.PrintData($"{InputRules}");
             bool valid = false;
             while (valid == false)
             {
@@ -33,17 +33,17 @@ namespace Garage1._0
                 int result;
                 if (int.TryParse(Input, out result) && condition(result))
                 {
-                    vehicleParameter = result;
+                    internalproperty = result;
                     valid = true;
                 }
                 else
                 {
-                    UI.PrintData($"{VehicleInputRules}");
+                    UI.PrintData($"{InputRules}");
                 }
             }
         }
 
-        public static int SetIntmember(string InputRules, Func<int, bool> condition)
+        public static int SetInt(string InputRules, Func<int, bool> condition)
         {
             int vehicleParameter = 0;//Quickfix?
             UI.PrintData($"{InputRules}");
@@ -65,17 +65,33 @@ namespace Garage1._0
             return vehicleParameter;
         }
 
-        public static void SetStringmember(string vehicleParameter, string VehicleInputRules, Func<string,bool> condition)
+        public static void SetString(string internalproperty, string InputRules, Func<string,bool> condition)
         {
-            ConsoleUI.PrintData($" Enter {vehicleParameter}:");
+            ConsoleUI.PrintData($" Enter {InputRules}:");
             var Input = UI.UserInput();
             if (condition(Input))
             {
-                vehicleParameter = UI.UserInput();
+                //?? Change to Input ??
+                internalproperty = UI.UserInput();
             }
             else
             {
-                ConsoleUI.PrintData($"{VehicleInputRules}");
+                ConsoleUI.PrintData($"{InputRules}");
+            }
+
+        }
+
+        public static void SetChar(char internalproperty, string InputRules, Func<string, bool> condition)
+        {
+            ConsoleUI.PrintData($" Enter {InputRules}:");
+            var Input = UI.UserInput();
+            if (condition(Input))
+            {
+                internalproperty = Input[0];
+            }
+            else
+            {
+                ConsoleUI.PrintData($"{InputRules}");
             }
 
         }

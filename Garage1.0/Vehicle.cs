@@ -13,16 +13,16 @@ namespace Garage1._0
         //private string type;
         //private string registrationNumber;
         //private int numberOfWheels;
-        public VehicleAttribute VehicleAttribute { get; set; }
+        public VehicleProperties VehicleAttribute { get; set; }
 
-        public Vehicle(VehicleAttribute vehicleAttribute)
+        public Vehicle(VehicleProperties vehicleAttribute)
         {
             VehicleAttribute = vehicleAttribute;
         }
         
-        public Vehicle(string regNo, string color)
+        public Vehicle( string color,  string type,  string registrationNumber,  int numberOfWheels, int numberOfSeats)
         {
-            var vehicleAttribute = new VehicleAttribute()
+            var vehicleAttribute = new VehicleProperties()
             {
                 //RegistrationNumber = regNo,
                 //Color = color
@@ -84,17 +84,17 @@ namespace Garage1._0
 
 
         // Move to GarageHandler?
-        //public virtual VehicleAttribute CreateVehicle()
+        //public virtual VehicleProperties CreateVehicle()
         //{
-        //    VehicleAttribute VehicleAttrib = new VehicleAttribute();
-        //    //Validate.SetStringmember(Color, "Must be entered in numbers and be less than 50", (valid) => { return true ? valid < 50 : false; });
+        //    VehicleProperties VehicleAttrib = new VehicleProperties();
+        //    //Validate.SetString(Color, "Must be entered in numbers and be less than 50", (valid) => { return true ? valid < 50 : false; });
         //    //color = Color;
         //    //type = Type;
         //    //registrationNumber = RegistrationNumber;
-        //    Validate.SetIntmember(VehicleAttrib.NumberOfWheels, "Enter number of wheels for vehicle. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 : false; });
+        //    Validate.SetInt(VehicleAttrib.NumberOfWheels, "Enter number of wheels for vehicle. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 : false; });
             
 
-        //    return vehicleAttribute;
+        //    return vehicleProperties;
 
 
         //}
@@ -103,7 +103,7 @@ namespace Garage1._0
 
     internal class Car : Vehicle
     {
-        public Car(VehicleAttribute attribute) : base(attribute)
+        public Car(VehicleProperties attribute) : base(attribute)
         {
             
         }
