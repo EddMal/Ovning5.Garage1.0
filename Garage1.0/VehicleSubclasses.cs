@@ -17,27 +17,46 @@ namespace Garage1._0
             {
 
             }
-            public class Car : Vehicle//, IVehicle
+        }
+
+        public class Boat : Vehicle//, IVehicle
+        {
+            //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels, NumberOfSeats };
+            public Boat(VehicleProperties vehicleProperties) : base(vehicleProperties)
+            {
+
+            }
+        }
+
+        public class Bus : Vehicle//, IVehicle
+        {
+            //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels, NumberOfSeats };
+            public Bus(VehicleProperties vehicleProperties) : base(vehicleProperties)
+            {
+
+            }
+        }
+
+        public class Car : Vehicle//, IVehicle
         {
             //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels, NumberOfSeats };
             public Car(VehicleProperties vehicleProperties) : base(vehicleProperties)
             {
-                
-            }
-
-
-
-                //public virtual VehicleProperties CreateVehicle(VehicleType vehicle)
-                //{
-                //    VehicleProperties Vehicleproperties = new VehicleProperties();
-                //    Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
-                //    Validated.SetString(Vehicleproperties.Color, $"Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the {Type}:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
-                //    Validated.SetString(Vehicleproperties.RegistrationNumber, $"Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the {Type}:", (string s) => { return true ? s.Length < 20 : false; });
-                //    Validated.SetInt(Vehicleproperties.NumberOfWheels, "Enter the vehicles number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 : false; });
-
-                //    return Vehicleproperties;
-                //}
 
             }
+
+        }
+
+        public class Motorcycle : Vehicle//, IVehicle
+        {
+            //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels, NumberOfSeats };
+            public Motorcycle(VehicleProperties vehicleProperties) : base(vehicleProperties)
+            {
+
+            }
+
+        }
+
+
     }
 }

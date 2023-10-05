@@ -18,7 +18,7 @@ namespace Garage1._0
         internal void Run()
         {
             //Ask for capacity
-            Menu();
+            Menu(garageHandler);
             //Show main meny
 
             //Act
@@ -26,16 +26,24 @@ namespace Garage1._0
 
         }
 
-        private void Menu()
+        // See to the structure of menu and return. 
+        private void Menu(GarageHandler garagehandler)
         {
-            throw new NotImplementedException();
+            UserMenu userMenu = new UserMenu();
+            bool quit = false;
+            while (quit == false)
+            {
+                (quit,garagehandler) = userMenu.Start(garagehandler);
+            }
         }
 
         private void ParkVehicle()
         {
-
+           // This is the next thing to address
            var car = garageHandler.CreateCar();
            garageHandler.Park(car);
         }
+
+       
     }
 }

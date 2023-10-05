@@ -13,8 +13,12 @@ namespace Garage1._0
         private string type;
         private string registrationNumber;
         private string carBrand;
+        private string electricMotor;
+        private string roof;
         private int numberOfWheels;
         private int numberOfSeats;
+        private int decks;
+        
 
         //private string AIRPLANE = "AIRPLANE";
         //private string BOAT = "BOAT";
@@ -22,7 +26,7 @@ namespace Garage1._0
         //private string CAR = "CAR";
         //private string MOTORCYCLE = "MOTORCYCLE";
         // private string[] types => new string[] { AIRPLANE, BOAT, BUS, CAR, MOTORCYCLE };
-        
+
         //The handling of this object generates a lot of objects ask and investigate.
         public virtual object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
@@ -47,7 +51,34 @@ namespace Garage1._0
             BEIGE,
             OTHER,
         }
-        
+
+        public enum CarBrands
+        {
+            VOLVO,
+            SAAB,
+            FIAT,
+            TOYOTA,
+            NISSAN,
+            RENAULT,
+            FORD,
+            AUDI,
+            VOLKSWAGEN,
+            OTHER,
+        }
+
+        public string Roof
+        {
+            get { return roof; }
+
+            set
+            {
+                if (value != "YES" && value != "YES")
+                {
+                    throw new ArgumentNullException("Color of vehicle cant be left empty");
+                }
+                roof = value;
+            }
+        }
         public string Color
         {
             get { return color; }
@@ -89,6 +120,34 @@ namespace Garage1._0
             }
         }
 
+        public string ElectricMotor
+        {
+            get => electricMotor;
+
+            set
+            {
+                if (value != "YES")
+                {
+                    throw new ArgumentNullException("There must me an electric motor on the vehicle.");
+                }
+
+                electricMotor = value;
+            }
+        }
+
+        public string CarBrand
+        {
+            get { return carBrand; }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Brand of vehicle cant be left empty");
+                }
+                carBrand = value;
+            }
+        }
         public int NumberOfWheels
         {
             get => numberOfWheels;
@@ -107,25 +166,24 @@ namespace Garage1._0
             get => numberOfSeats;
             set
             {
-                if (value < 0 && value > 10)
+                if (value < 0 && value > 25)
                 {
-                    throw new IndexOutOfRangeException("Number of seats must be within range 1 to 10");
+                    throw new IndexOutOfRangeException("Number of seats must be within range 0 to 25");
                 }
                 numberOfSeats = value;
             }
         }
 
-        public string CarBrand
+        public int Decks
         {
-            get { return carBrand; }
-
+            get => decks;
             set
             {
-                if (value == null)
+                if (value < 0 && value > 2)
                 {
-                    throw new ArgumentNullException("Brand of vehicle cant be left empty");
+                    throw new IndexOutOfRangeException("Number of decks must be within range 0 to 2");
                 }
-                carBrand = value;
+                decks = value;
             }
         }
     }

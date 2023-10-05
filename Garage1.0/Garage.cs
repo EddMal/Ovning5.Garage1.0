@@ -49,5 +49,13 @@ namespace Garage1._0
                 ConsoleUI.PrintData($"Garage is full.");
             }
         }
+
+        internal IEnumerable<T> GetAllGarageData()
+        { 
+                foreach(var item in slots) 
+                {
+                    yield return item;
+                }
+        }
     }
 }
