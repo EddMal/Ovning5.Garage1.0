@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Garage1._0.VehicleProperties;
 
 namespace Garage1._0
 {
@@ -52,9 +53,10 @@ namespace Garage1._0
 
 
         //Method should be divided in to methods for readability and "changeability", and a lot of the content would be beneficial to move to ExamineInput".
-        public virtual Garage<IVehicle> Menu(Garage<IVehicle> garage)
+        public virtual Garage<Vehicle> Menu(Garage<Vehicle> garage)
         {
-            Garage<IVehicle> garageInput = garage;
+            //Validated validated = new Validated();
+            Garage<Vehicle> garageInput = garage;
             UI.PrintData("Welcome to manage your garage!\n Enter \"q\" to close the application.\n\"1\" to park a car.\n\"2\" to remove a car from garage.\n\"3\"to search for vehicle");
             do
             {
@@ -65,6 +67,10 @@ namespace Garage1._0
                 switch (SelectAction)
                 {
                     case '1':
+                        //Move to method.
+                        
+                        string vehicle = Validated.SetString("Select action:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); } ) ;
+                        //GarageHandler.CreateVehicle(vehicle);
                         //garageInput.Add(Input);
                         UI.PrintData($"Added \"{Input}\" to the Garage.");
                         break;

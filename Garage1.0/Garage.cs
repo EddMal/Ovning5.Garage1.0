@@ -27,7 +27,7 @@ namespace Garage1._0
     //Skapa ett garage med en användar specificerad storlek(storlek sätts genom IHandler)
 
 
-    internal class Garage<T> where T : IVehicle
+    internal class Garage<T> where T : Vehicle
     {
         private T[] slots;
 

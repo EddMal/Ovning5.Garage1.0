@@ -33,8 +33,9 @@ namespace Garage1._0
 
         private void ParkVehicle()
         {
-           var v  = new Car(new VehicleProperties());
-            garageHandler.Park(v);
+           var carProperties = garageHandler.CreateCar();
+           var car  = new VehicleSubclasses.Car(carProperties);
+           garageHandler.Park(car);
         }
     }
 }

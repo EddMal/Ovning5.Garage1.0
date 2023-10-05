@@ -23,7 +23,7 @@ namespace Garage1._0
         //    return valid;
         //}
 
-        public static void SetInt( int internalproperty, string InputRules, Func<int, bool> condition)
+        public static void SetInt( int instanceProperty, string InputRules, Func<int, bool> condition)
         {
             UI.PrintData($"{InputRules}");
             bool valid = false;
@@ -33,7 +33,7 @@ namespace Garage1._0
                 int result;
                 if (int.TryParse(Input, out result) && condition(result))
                 {
-                    internalproperty = result;
+                    instanceProperty = result;
                     valid = true;
                 }
                 else
@@ -65,29 +65,79 @@ namespace Garage1._0
             return vehicleParameter;
         }
 
-        public static void SetString(string internalproperty, string InputRules, Func<string,bool> condition)
+        public static void SetString(string instanceProperty, string InputRules, Func<string,bool> condition)
         {
             ConsoleUI.PrintData($" Enter {InputRules}:");
-            var Input = UI.UserInput();
-            if (condition(Input))
+            bool valid = false;
+            while (valid == false)
             {
-                //?? Change to Input ??
-                internalproperty = UI.UserInput();
-            }
-            else
-            {
-                ConsoleUI.PrintData($"{InputRules}");
+                var Input = UI.UserInput();
+                if (condition(Input))
+                {
+                    instanceProperty = Input;
+                    valid = true;
+                }
+                else
+                {
+                    ConsoleUI.PrintData($"{InputRules}");
+                }
             }
 
         }
 
-        public static void SetChar(char internalproperty, string InputRules, Func<string, bool> condition)
+        public static string SetString(string InputRules, Func<string, bool> condition)
+        {
+            string result = " ";//Quick fix resolve
+            ConsoleUI.PrintData($" Enter {InputRules}:");
+            bool valid = false;
+            while (valid == false)
+            {
+                var Input = UI.UserInput();
+                if (condition(Input))
+                {
+                    result = Input;
+                    valid = true;
+                }
+                else
+                {
+                    ConsoleUI.PrintData($"{InputRules}");
+                }
+            }
+            return result;
+
+        }
+
+        public static string SetStringCaseInsesitive(string InputRules, Func<string, bool> condition)
+        {
+            ConsoleUI.PrintData($" Enter {InputRules}:");
+            bool valid = false;
+            var Input = "Missing";//quick fix?
+            while (valid == false)
+            {
+                Input = UI.UserInput();
+                var Input2 = Input.ToUpper();
+                if (condition(Input2))
+                {
+                    valid = true;
+                }
+                else
+                {
+                    ConsoleUI.PrintData($"{InputRules}");
+                }
+            }
+            return Input;
+
+        }
+
+    
+
+        public static void SetChar(char instanceProperty, string InputRules, Func<string, bool> condition)
         {
             ConsoleUI.PrintData($" Enter {InputRules}:");
             var Input = UI.UserInput();
             if (condition(Input))
             {
-                internalproperty = Input[0];
+                instanceProperty = Input[0];
             }
             else
             {

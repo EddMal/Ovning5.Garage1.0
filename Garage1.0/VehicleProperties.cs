@@ -6,28 +6,62 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-    internal class VehicleProperties : IVehicleProperties
+    // Test <T> and insert ex. a list with number of parameters for diffrent types and use as number for vehicleProperties.
+    internal class VehicleProperties
     {
         private string color;
         private string type;
         private string registrationNumber;
         private int numberOfWheels;
         private int numberOfSeats;
-        public virtual object[] vehicleProperties => new object[] { color, type, registrationNumber, numberOfWheels };
+
+        //private string AIRPLANE = "AIRPLANE";
+        //private string BOAT = "BOAT";
+        //private string BUS = "BUS";
+        //private string CAR = "CAR";
+        //private string MOTORCYCLE = "MOTORCYCLE";
+        // private string[] types => new string[] { AIRPLANE, BOAT, BUS, CAR, MOTORCYCLE };
+        public virtual object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
+
+        public enum VehicleType 
+        { 
+            AIRPLANE,
+            BOAT,
+            BUS,
+            CAR,
+            MOTORCYCLE,
+        }
+
+        public enum VehicleColor
+        {
+            GREEN,
+            RED,
+            BLUE,
+            YELLOW,
+            BLACK,
+            WHITE,
+            GREY,
+            BEIGE,
+            OTHER,
+        }
 
         public string Color
         {
             get { return color; }
-            // Protected only sub-classes can set;
-            protected set
+            
+            set
             {
-
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Color of vehicle cant be left empty");
+                }
+                color = value;
             }
         }
         public string Type
         {
             get => type;
-            protected set
+            set
             {
                 if (value == null)
                 {
@@ -41,7 +75,7 @@ namespace Garage1._0
         {
             get => registrationNumber;
 
-            protected set
+            set
             {
                 if (value == null)
                 {
@@ -55,7 +89,7 @@ namespace Garage1._0
         public int NumberOfWheels
         {
             get => numberOfWheels;
-            protected set
+            set
             {
                 if (value <= 50 && value >= 0)
                 {
@@ -68,7 +102,7 @@ namespace Garage1._0
         public int NumberOfSeats
         {
             get => numberOfSeats;
-            protected set
+            set
             {
                 if (value <= 50 && value >= 0)
                 {

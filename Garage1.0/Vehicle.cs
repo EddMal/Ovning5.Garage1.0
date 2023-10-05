@@ -7,26 +7,54 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-    internal abstract class Vehicle : IVehicle
+    internal abstract class Vehicle : VehicleProperties//, IVehicle
     {
         //private string color;
         //private string type;
         //private string registrationNumber;
         //private int numberOfWheels;
-        public VehicleProperties VehicleAttribute { get; set; }
 
-        public Vehicle(VehicleProperties vehicleProperties)
-        {
-            VehicleAttribute = vehicleProperties;
-        }
-        
+
+        public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
+
+        //VehicleProperties IVehicle.vehicleProperties { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        //public virtual VehicleProperties vehicleProperties { get; set; }
+        //public Vehicle(VehicleProperties vehicleProperties)
+        //{
+        //    this.vehicleProperties = vehicleProperties;
+        //}
+
+
+
+
         // Is this not used yet? if not remove.
-        public Vehicle( string color,  string type,  string registrationNumber,  int numberOfWheels, int numberOfSeats)
+        public Vehicle(string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
+        {
+            var vehicleProps = new VehicleProperties() { Color = color,
+                                                         Type = "Unknown vehicle",
+                                                         RegistrationNumber = registrationNumber,
+                                                         NumberOfWheels = numberOfWheels,
+                                                         NumberOfSeats = numberOfSeats
+            };
+        }
+
+        public Vehicle(VehicleProperties vehicleProperties)//string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
+        {
+            var vehicleProps = new VehicleProperties();
+            vehicleProps = vehicleProperties;
+        }
+
+
+        public Vehicle(string color, string type, string registrationNumber, int numberOfWheels)//, int numberOfSeats)
         {
             var vehicleAttribute = new VehicleProperties()
             {
-                //RegistrationNumber = regNo,
-                //Color = color
+                Color = color,
+                Type = type,
+                RegistrationNumber = registrationNumber,
+                NumberOfWheels = numberOfWheels,
+                //NumberOfSeats = numberOfSeats
             };
         }
 
@@ -93,7 +121,7 @@ namespace Garage1._0
         //    //type = Type;
         //    //registrationNumber = RegistrationNumber;
         //    Validate.SetInt(VehicleAttrib.NumberOfWheels, "Enter number of wheels for vehicle. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 : false; });
-            
+
 
         //    return vehicleProperties;
 
@@ -102,11 +130,11 @@ namespace Garage1._0
 
     }
 
-    internal class Car : Vehicle
-    {
-        public Car(VehicleProperties vehicleProperties) : base(vehicleProperties)
-        {
+    //internal class Car : Vehicle
+    //{
+    //    public Car(VehicleProperties vehicleProperties) : base(vehicleProperties)
+    //    {
             
-        }
-    }
+    //    }
+    //}
 }
