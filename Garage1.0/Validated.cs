@@ -45,7 +45,7 @@ namespace Garage1._0
 
         public static int SetInt(string InputRules, Func<int, bool> condition)
         {
-            int vehicleParameter = 0;//Quickfix?
+            int intOut = 0;//Quickfix?
             UI.PrintData($"{InputRules}");
             bool valid = false;
             while (valid == false)
@@ -54,7 +54,7 @@ namespace Garage1._0
                 int result;
                 if (int.TryParse(Input, out result) && condition(result))
                 {
-                    vehicleParameter = result;
+                    intOut = result;
                     valid = true;
                 }
                 else
@@ -62,10 +62,11 @@ namespace Garage1._0
                     UI.PrintData($"{InputRules}");
                 }
             }
-            return vehicleParameter;
+            return intOut;
         }
 
-        public static void SetString(string instanceProperty, string InputRules, Func<string,bool> condition)
+        //Note to selfe 1.1 this should manipulate property, it did not.. possible reason a instance of car did not exist and ! thereby property? 
+        public static void SetString(string instanceProperty, string InputRules, Func<string, bool> condition)
         {
             ConsoleUI.PrintData($" Enter {InputRules}:");
             bool valid = false;

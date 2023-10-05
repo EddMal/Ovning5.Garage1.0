@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static Garage1._0.VehicleProperties;
@@ -53,23 +54,32 @@ namespace Garage1._0
 
 
         //Method should be divided in to methods for readability and "changeability", and a lot of the content would be beneficial to move to ExamineInput".
-        public virtual Garage<Vehicle> Menu(Garage<Vehicle> garage)
+        public virtual GarageHandler Menu(GarageHandler garage)
         {
             //Validated validated = new Validated();
-            Garage<Vehicle> garageInput = garage;
-            UI.PrintData("Welcome to manage your garage!\n Enter \"q\" to close the application.\n\"1\" to park a car.\n\"2\" to remove a car from garage.\n\"3\"to search for vehicle");
+            GarageHandler garageInput = garage;
+
             do
             {
-                UI.PrintData("Enter \"q\" to close the application.\n\"1\" to park a car.\n\"2\" to remove a car from garage.\n\"3\"to view list of vehicles with properties based search.");
+                string vehicle = "unknown vihecle";
+                UI.PrintData("Instructions to manage the garage:\n Enter \"q\" to close the application.\n\"0\" to create a vehicle.\n\"1\" to park a vehicle.\n\"2\" to remove a vehicle from garage.\n\"3\"to search for vehicle");
 
                 Validated.SetChar(SelectAction, "Select action:", (string s) => { return true ? s.Length == 1 : false; });
 
                 switch (SelectAction)
                 {
+                    case '0':
+                        //Move to method.
+                        UI.PrintData("Create a vehicle:\n Enter \"q\" to exit to main menu.\n\"0\" to add a Airplane.\n\"1\" to add a boat.\n\"2\" to add a Bus\n\"3\"to add a car\n\"4\"to add a motorcycle");
+                        int Action = Validated.SetInt("Select action:", (int s) => { return true ? s>=0 && s <= 4 : false; });
+                        garage.CreateVehicle(SelectAction);
+                        //garageInput.Add(Input);
+                        UI.PrintData($"Added \"{Input}\" to the Garage.");
+                        break;
                     case '1':
                         //Move to method.
                         
-                        string vehicle = Validated.SetString("Select action:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); } ) ;
+                        vehicle = Validated.SetString("Select action:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); } ) ;
                         //GarageHandler.CreateVehicle(vehicle);
                         //garageInput.Add(Input);
                         UI.PrintData($"Added \"{Input}\" to the Garage.");

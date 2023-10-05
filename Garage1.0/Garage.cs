@@ -30,6 +30,7 @@ namespace Garage1._0
     internal class Garage<T> where T : Vehicle
     {
         private T[] slots;
+        private int count;
 
         public Garage(int capacity)
         {
@@ -38,7 +39,15 @@ namespace Garage1._0
 
         internal void Park(T vehicle)
         {
-            //Add to slots
+            if (count <= slots.Length)
+            {
+                slots[count] = vehicle;
+                this.count++;
+            }
+            else
+            {
+                ConsoleUI.PrintData($"Garage is full.");
+            }
         }
     }
 }

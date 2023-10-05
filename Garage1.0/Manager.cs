@@ -18,7 +18,7 @@ namespace Garage1._0
         internal void Run()
         {
             //Ask for capacity
-            //Menu();
+            Menu();
             //Show main meny
 
             //Act
@@ -33,8 +33,8 @@ namespace Garage1._0
 
         private void ParkVehicle()
         {
-           var carProperties = garageHandler.CreateCar();
-           var car  = new VehicleSubclasses.Car(carProperties);
+
+           var car = garageHandler.CreateCar();
            garageHandler.Park(car);
         }
     }

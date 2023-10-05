@@ -12,6 +12,7 @@ namespace Garage1._0
         private string color;
         private string type;
         private string registrationNumber;
+        private string carBrand;
         private int numberOfWheels;
         private int numberOfSeats;
 
@@ -21,6 +22,8 @@ namespace Garage1._0
         //private string CAR = "CAR";
         //private string MOTORCYCLE = "MOTORCYCLE";
         // private string[] types => new string[] { AIRPLANE, BOAT, BUS, CAR, MOTORCYCLE };
+        
+        //The handling of this object generates a lot of objects ask and investigate.
         public virtual object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
         public enum VehicleType 
@@ -44,7 +47,7 @@ namespace Garage1._0
             BEIGE,
             OTHER,
         }
-
+        
         public string Color
         {
             get { return color; }
@@ -91,7 +94,7 @@ namespace Garage1._0
             get => numberOfWheels;
             set
             {
-                if (value <= 50 && value >= 0)
+                if (value < 0 && value > 50)
                 {
                     throw new IndexOutOfRangeException("Number of wheels must be within range 0 to 50");
                 }
@@ -104,11 +107,25 @@ namespace Garage1._0
             get => numberOfSeats;
             set
             {
-                if (value <= 50 && value >= 0)
+                if (value < 0 && value > 10)
                 {
                     throw new IndexOutOfRangeException("Number of seats must be within range 1 to 10");
                 }
                 numberOfSeats = value;
+            }
+        }
+
+        public string CarBrand
+        {
+            get { return carBrand; }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Brand of vehicle cant be left empty");
+                }
+                carBrand = value;
             }
         }
     }

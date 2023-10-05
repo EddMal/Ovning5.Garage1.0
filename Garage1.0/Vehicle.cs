@@ -15,11 +15,11 @@ namespace Garage1._0
         //private int numberOfWheels;
 
 
-        public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
+        //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
         //VehicleProperties IVehicle.vehicleProperties { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        //public virtual VehicleProperties vehicleProperties { get; set; }
+        public virtual VehicleProperties vehicleProperties { get; set; }
         //public Vehicle(VehicleProperties vehicleProperties)
         //{
         //    this.vehicleProperties = vehicleProperties;
@@ -41,8 +41,8 @@ namespace Garage1._0
 
         public Vehicle(VehicleProperties vehicleProperties)//string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
         {
-            var vehicleProps = new VehicleProperties();
-            vehicleProps = vehicleProperties;
+
+            this.vehicleProperties = vehicleProperties;
         }
 
 

@@ -29,7 +29,7 @@ namespace Garage1._0
         public static int SetCapacity() 
         {
             //Validated validated = new Validated();
-            int capacity = Validated.SetInt("Set garage capacity, minimum capacity is 10 slots max capacity is 80 slots.", (valid) => { return true ? valid < 80 && valid > 0 : false; });
+            int capacity = Validated.SetInt("Set garage capacity, minimum capacity is 10 slots max capacity is 80 slots.", (valid) => { return true ? valid < 80 && valid > 9 : false; });
             return capacity;
         }
     }
