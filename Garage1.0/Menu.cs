@@ -92,11 +92,12 @@ namespace Garage1._0
                         break;
                     case '2': // Remove a vehicle.
                         bool inputFound = false;
-
-                        foreach (var item in garageInput)
+                        var vehicles = garageInput.GetAllGarageData();
+                        var registrationNumber = Validated.SetString($"Enter the registration number to remove a vehicle from the garage:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+                        foreach (var item in vehicles)
                         {
                             //Removes one item of input-name, if there are more members with the same name they will remain on the list.
-                            if (Input == item)
+                            if (registrationNumber == item.RegistrationNumber)
                             {
                                 garageInput.Remove(Input);
                                 inputFound = true;

@@ -20,11 +20,12 @@ namespace Garage1._0
             garage.Park(v);
         }
 
-        //internal IEnumerable<T> GetAllGarageData()
-        //{
-            
-        //        yield return garage.GetAllGarageData();
-        //}
+        internal List<Vehicle> GetAllGarageData()
+        {
+
+            List<Vehicle> vehicles = (List<Vehicle>)garage.GetEnumerator();
+            return vehicles;
+        }
 
         internal virtual Vehicle CreateVehicle(int action)
         {

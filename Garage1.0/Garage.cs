@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -27,7 +29,7 @@ namespace Garage1._0
     //Skapa ett garage med en användar specificerad storlek(storlek sätts genom IHandler)
 
 
-    internal class Garage<T> where T : Vehicle
+    internal class Garage<T>: IEnumerable<T> where T : Vehicle
     {
         private T[] slots;
         private int count;
@@ -50,12 +52,39 @@ namespace Garage1._0
             }
         }
 
-        internal IEnumerable<T> GetAllGarageData()
-        { 
-                foreach(var item in slots) 
+        internal void Remove(Vehicle vehicle)
+        {
+            int countindex = 0;
+            foreach (var item in slots)
+            {
+                
+                if (vehicle.RegistrationNumber == item)
                 {
-                    yield return item;
+               
+                    slots[countindex] = Remove;
+                    this.count--;
                 }
+                else
+                {
+                    ConsoleUI.PrintData($"Garage is full.");
+                }
+                countindex++;
+            }
+            
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            foreach (var item in slots)
+            {
+                //additional condition/function?
+                yield return item;
+            }
+        }
+
+        public IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
