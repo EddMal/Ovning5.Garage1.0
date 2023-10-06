@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,8 @@ namespace Garage1._0
 
         //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
-        //VehicleProperties IVehicle.vehicleProperties { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public virtual VehicleProperties vehicleProperties { get; set; }
+       // VehicleProperties vehicleProperties { get; set; }
+        VehicleProperties SubvehicleProperties;
         //public Vehicle(VehicleProperties vehicleProperties)
         //{
         //    this.vehicleProperties = vehicleProperties;
@@ -29,15 +29,15 @@ namespace Garage1._0
 
 
         // Is this not used yet? if not remove.
-        public Vehicle(string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
-        {
-            var vehicleProps = new VehicleProperties() { Color = color,
-                                                         Type = "Unknown vehicle",
-                                                         RegistrationNumber = registrationNumber,
-                                                         NumberOfWheels = numberOfWheels,
-                                                         NumberOfSeats = numberOfSeats
-            };
-        }
+        //public Vehicle(string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
+        //{
+        //    var vehicleProps = new VehicleProperties() { Color = color,
+        //                                                 Type = "Unknown vehicle",
+        //                                                 RegistrationNumber = registrationNumber,
+        //                                                 NumberOfWheels = numberOfWheels,
+        //                                                 NumberOfSeats = numberOfSeats
+        //    };
+        //}
 
         public Vehicle(VehicleProperties vehicleProperties)//string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
         {
@@ -45,18 +45,18 @@ namespace Garage1._0
             this.vehicleProperties = vehicleProperties;
         }
 
-
-        public Vehicle(string color, string type, string registrationNumber, int numberOfWheels)//, int numberOfSeats)
-        {
-            var vehicleAttribute = new VehicleProperties()
-            {
-                Color = color,
-                Type = type,
-                RegistrationNumber = registrationNumber,
-                NumberOfWheels = numberOfWheels,
-                //NumberOfSeats = numberOfSeats
-            };
-        }
+        
+        //public Vehicle(string color, string type, string registrationNumber, int numberOfWheels)//, int numberOfSeats)
+        //{
+        //    var vehicleAttribute = new VehicleProperties()
+        //    {
+        //        Color = color,
+        //        Type = type,
+        //        RegistrationNumber = registrationNumber,
+        //        NumberOfWheels = numberOfWheels,
+        //        //NumberOfSeats = numberOfSeats
+        //    };
+        //}
 
 
 

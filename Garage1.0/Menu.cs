@@ -62,33 +62,33 @@ namespace Garage1._0
             do
             {
                 Vehicle vehicle;
-                vehicle.Type = "Unknown vehicle";
                 UI.PrintData("Instructions to manage the garage:\n Enter \"q\" to close the application.\n\"0\" to create a vehicle.\n\"1\" to park a vehicle.\n\"2\" to remove a vehicle from garage.\n\"3\"to search for vehicle");
+                char action = '0';
+                Validated.SetChar(action, "Select action:", (string s) => { return true ? s.Length == 1 : false; });
 
-                Validated.SetChar(SelectAction, "Select action:", (string s) => { return true ? s.Length == 1 : false; });
-
-                switch (SelectAction)
+                switch (action)
                 {
                     case '0': // Add a vehicle
                         //Move to method.
                         UI.PrintData("Create a vehicle:\n Enter \"q\" to exit to main menu.\n\"0\" to add a Airplane.\n\"1\" to add a boat.\n\"2\" to add a Bus\n\"3\"to add a car\n\"4\"to add a motorcycle");
-                        int Action = Validated.SetInt("Select action:", (int s) => { return true ? s>=0 && s <= 4 : false; });
-                        vehicle = garageInput.CreateVehicle(SelectAction);
+                        int select = Validated.SetInt("Select action:", (int s) => { return true ? s>=0 && s <= 4 : false; });
+                        vehicle = garageInput.CreateVehicle(select);
                         //garageInput.Add(Input);
                         UI.PrintData($"Created a new \"{vehicle.Type}\"");
                         break;
                     case '1': // Park a vehicle
                         //Move to method.
-                        if (vehicle.Type == "Unknown vehicle")
-                        {
+                        
+                        //if ( )
+                        //{
                             ConsoleUI.PrintData($"There is no vehicle to park, start with creating a new vehicle(option 0).");
-                        }
-                        else
-                        {
-                            garageInput.Park(vehicle);
-                            UI.PrintData($"Added \"{vehicle.Type}\" to the Garage.");
-                            vehicle.Type = "Unknown vehicle";
-                        }
+                        //}
+                        //else
+                        //{
+                            //garageInput.Park(vehicle);
+                            //UI.PrintData($"Added \"{vehicle.Type}\" to the Garage.");
+                            //vehicle.Type = "Unknown vehicle";
+                        //}
                         break;
                     case '2': // Remove a vehicle.
                         bool inputFound = false;

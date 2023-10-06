@@ -33,7 +33,7 @@ namespace Garage1._0
     {
         private T[] slots;
         private int count;
-
+        
         public Garage(int capacity)
         {
             slots = new T[capacity]; 
@@ -52,24 +52,25 @@ namespace Garage1._0
             }
         }
 
-        internal void Remove(Vehicle vehicle)
+        internal void Remove(string registrationNumber)
         {
             int countindex = 0;
+            T[] replaceSlotts = new T[count-1];
             foreach (var item in slots)
             {
                 
-                if (vehicle.RegistrationNumber == item)
+                if (registrationNumber == item.RegistrationNumber)
                 {
-               
-                    slots[countindex] = Remove;
                     this.count--;
                 }
                 else
                 {
-                    ConsoleUI.PrintData($"Garage is full.");
+                    replaceSlotts[countindex] = item;
                 }
                 countindex++;
             }
+
+            slots = replaceSlotts;
             
         }
 
@@ -82,7 +83,7 @@ namespace Garage1._0
             }
         }
 
-        public IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
