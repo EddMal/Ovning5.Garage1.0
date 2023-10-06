@@ -18,7 +18,8 @@ namespace Garage1._0
 
         //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
-        VehicleProperties vehicleProperties { get; set; }
+        // VehicleProperties vehicleProperties { get; set; }
+        public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
         //public Vehicle(VehicleProperties vehicleProperties)
         //{
@@ -26,18 +27,18 @@ namespace Garage1._0
         //}
 
 
-    // Is this not used yet? if not remove.
-    //public Vehicle(string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
-    //{
-    //    var vehicleProps = new VehicleProperties() { Color = color,
-    //                                                 Type = "Unknown vehicle",
-    //                                                 RegistrationNumber = registrationNumber,
-    //                                                 NumberOfWheels = numberOfWheels,
-    //                                                 NumberOfSeats = numberOfSeats
-    //    };
-    //}
+        // Is this not used yet? if not remove.
+        //public Vehicle(string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
+        //{
+        //    var vehicleProps = new VehicleProperties() { Color = color,
+        //                                                 Type = "Unknown vehicle",
+        //                                                 RegistrationNumber = registrationNumber,
+        //                                                 NumberOfWheels = numberOfWheels,
+        //                                                 NumberOfSeats = numberOfSeats
+        //    };
+        //}
 
-        public Vehicle(VehicleProperties vehicleProperties)//string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
+        public Vehicle(object[] vehicleProperties)//string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
         {
 
             this.vehicleProperties = vehicleProperties;
