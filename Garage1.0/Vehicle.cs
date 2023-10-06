@@ -18,7 +18,7 @@ namespace Garage1._0
 
         //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
-        //VehicleProperties vehicleProperties { get; set; }
+        VehicleProperties vehicleProperties { get; set; }
 
         //public Vehicle(VehicleProperties vehicleProperties)
         //{
