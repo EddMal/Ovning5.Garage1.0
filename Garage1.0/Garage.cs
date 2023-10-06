@@ -58,16 +58,18 @@ namespace Garage1._0
             T[] replaceSlotts = new T[count-1];
             foreach (var item in slots)
             {
-                
-                if (registrationNumber == item.RegistrationNumber)
+                foreach (var property in item.vehicleProperties)
                 {
-                    this.count--;
+                    if ((string)property == registrationNumber)
+                    {
+                        this.count--;
+                    }
+                    else
+                    {
+                        replaceSlotts[countindex] = item;
+                    }
+                    countindex++;
                 }
-                else
-                {
-                    replaceSlotts[countindex] = item;
-                }
-                countindex++;
             }
 
             slots = replaceSlotts;

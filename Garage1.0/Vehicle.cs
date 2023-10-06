@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Garage1._0
 {
-    internal abstract class Vehicle : VehicleProperties//, IVehicle
+    internal abstract class Vehicle //: VehicleProperties//, IVehicle
     {
         //private string color;
         //private string type;
@@ -19,7 +19,7 @@ namespace Garage1._0
         //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
         // VehicleProperties vehicleProperties { get; set; }
-        public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
+        public object[] vehicleProperties;// => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
         //public Vehicle(VehicleProperties vehicleProperties)
         //{
@@ -37,11 +37,16 @@ namespace Garage1._0
         //                                                 NumberOfSeats = numberOfSeats
         //    };
         //}
+        public virtual object[] GetVihecleProperties()
+        { // Bad practise string input.
+            object[] specifiedproperties = VehicleProperties.SpecifiedVihecleProperties("VEHICLE");
+            return specifiedproperties;
+        }
 
         public Vehicle(object[] vehicleProperties)//string color, string registrationNumber, int numberOfWheels, int numberOfSeats)
         {
 
-            this.vehicleProperties = vehicleProperties;
+            this.vehicleProperties = GetVihecleProperties();
         }
 
         

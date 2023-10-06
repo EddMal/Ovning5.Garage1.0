@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Garage1._0.VehicleProperties;
+using static Garage1._0.VehicleSubclasses;
 
 namespace Garage1._0
 {
     // Test <T> and insert ex. a list with number of parameters for diffrent types and use as number for vehicleProperties.
     internal class VehicleProperties
     {
-        private string color;
-        private string type;
-        private string registrationNumber;
-        private string carBrand;
-        private string electricMotor;
-        private string roof;
-        private int numberOfWheels;
-        private int numberOfSeats;
-        private int decks;
+        protected string color;
+        protected string type;
+        protected string registrationNumber;
+        protected string carBrand;
+        protected string electricMotor;
+        protected string roof;
+        protected int numberOfWheels;
+        protected int numberOfSeats;
+        protected int decks;
 
 
         //private string AIRPLANE = "AIRPLANE";
@@ -45,7 +47,6 @@ namespace Garage1._0
 
 
         //public virtual object[] subVehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
-
 
         public enum VehicleType 
         { 
@@ -83,7 +84,7 @@ namespace Garage1._0
             OTHER,
         }
 
-        public string Roof
+        protected string Roof
         {
             get { return roof; }
 
@@ -96,7 +97,7 @@ namespace Garage1._0
                 roof = value;
             }
         }
-        public string Color
+        internal string Color
         {
             get { return color; }
             
@@ -109,7 +110,7 @@ namespace Garage1._0
                 color = value;
             }
         }
-        public string Type
+        internal string Type
         {
             get => type;
             set
@@ -122,7 +123,7 @@ namespace Garage1._0
             }
         }
 
-        public string RegistrationNumber
+        internal string RegistrationNumber
         {
             get => registrationNumber;
 
@@ -137,7 +138,7 @@ namespace Garage1._0
             }
         }
 
-        public string ElectricMotor
+        internal string ElectricMotor
         {
             get => electricMotor;
 
@@ -152,7 +153,7 @@ namespace Garage1._0
             }
         }
 
-        public string CarBrand
+        internal string CarBrand
         {
             get { return carBrand; }
 
@@ -165,7 +166,7 @@ namespace Garage1._0
                 carBrand = value;
             }
         }
-        public int NumberOfWheels
+        internal int NumberOfWheels
         {
             get => numberOfWheels;
             set
@@ -178,7 +179,7 @@ namespace Garage1._0
             }
         }
 
-        public int NumberOfSeats
+        internal int NumberOfSeats
         {
             get => numberOfSeats;
             set
@@ -191,7 +192,7 @@ namespace Garage1._0
             }
         }
 
-        public int Decks
+        internal int Decks
         {
             get => decks;
             set
@@ -203,5 +204,39 @@ namespace Garage1._0
                 decks = value;
             }
         }
+
+        public static object[] SpecifiedVihecleProperties(string vehicleType)
+        {
+            
+            VehicleProperties vehicle = new VehicleProperties();
+            if (Enum.IsDefined(enumType: typeof(VehicleColor), value: vehicleType))
+            { vehicleType = vehicleType.ToUpper();
+                //Bad practise hard coded values.
+                switch (vehicleType)
+                {
+                    case "AIRPLANE":
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.NumberOfSeats };
+                        break;
+                    case "BUSS":
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.ElectricMotor };
+                        break;
+                    case "BOAT":
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.Decks };
+                        break;
+                    case "CAR":
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.CarBrand };
+                        break;
+                    case "MOTORCYCLE":
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.Roof };
+                        break;
+                    default:
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels };
+                        break;             
+                }
+            }
+            return vehicle.vehicleProperties;
+
+        }
+
     }
 }
