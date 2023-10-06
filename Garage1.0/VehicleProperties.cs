@@ -28,8 +28,8 @@ namespace Garage1._0
         // private string[] types => new string[] { AIRPLANE, BOAT, BUS, CAR, MOTORCYCLE };
 
         //The handling of this object generates a lot of objects ask and investigate.
-        //public virtual object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
-        public virtual object[] SubvehicleProperties => new object[4];//{ Color, Type, RegistrationNumber, NumberOfWheels };
+        public virtual object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
+        //public virtual object[] subVehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
 
         public enum VehicleType 

@@ -68,7 +68,7 @@ namespace Garage1._0
         //Note to selfe 1.1 this should manipulate property, it did not.. possible reason a instance of car did not exist and ! thereby property? 
         public static void SetString(string instanceProperty, string InputRules, Func<string, bool> condition)
         {
-            ConsoleUI.PrintData($" Enter {InputRules}:");
+            ConsoleUI.PrintData($"{InputRules}");
             bool valid = false;
             while (valid == false)
             {
@@ -89,7 +89,7 @@ namespace Garage1._0
         public static string SetString(string InputRules, Func<string, bool> condition)
         {
             string result = " ";//Quick fix resolve
-            ConsoleUI.PrintData($" Enter {InputRules}:");
+            ConsoleUI.PrintData($"{InputRules}");
             bool valid = false;
             while (valid == false)
             {
@@ -110,7 +110,7 @@ namespace Garage1._0
 
         public static string SetStringCaseInsesitive(string InputRules, Func<string, bool> condition)
         {
-            ConsoleUI.PrintData($" Enter {InputRules}:");
+            ConsoleUI.PrintData($"{InputRules}");
             bool valid = false;
             var Input = "Missing";//quick fix?
             while (valid == false)
@@ -132,19 +132,26 @@ namespace Garage1._0
 
     
 
-        public static void SetChar(char instanceProperty, string InputRules, Func<string, bool> condition)
+       //Consider to make a loop untill 
+        public static char SetChar(string InputRules, Func<string, bool> condition)
         {
-            ConsoleUI.PrintData($" Enter {InputRules}:");
-            var Input = UI.UserInput();
-            if (condition(Input))
+            ConsoleUI.PrintData($"{InputRules}");
+            bool valid = false;
+            var instanceProperty = ' ';//quick fix?
+            while (valid == false)
             {
-                instanceProperty = Input[0];
+                var Input = UI.UserInput();
+                if (condition(Input))
+                {
+                    instanceProperty = Input[0];
+                    valid = true;
+                }
+                else
+                {
+                    ConsoleUI.PrintData($"{InputRules}");
+                }
             }
-            else
-            {
-                ConsoleUI.PrintData($"{InputRules}");
-            }
-
+            return instanceProperty;
         }
 
         //public static void Input<T>(object[] parameters[], Action<string> output, Func<T,T,bool> parse, Func<string> input, object[] VehicleInputRules)//

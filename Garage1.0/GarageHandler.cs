@@ -4,7 +4,7 @@ using static Garage1._0.VehicleSubclasses.Airplane;
 
 namespace Garage1._0
 {
-    internal class GarageHandler//:VehicleProperties
+    internal class GarageHandler:VehicleProperties
     {
         private Garage<Vehicle> garage;
 
@@ -108,7 +108,7 @@ namespace Garage1._0
         {
             
             VehicleProperties vehicleProperties = new VehicleProperties();
-            
+
             vehicleProperties.Type = "car";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
             vehicleProperties.Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
             vehicleProperties.RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
