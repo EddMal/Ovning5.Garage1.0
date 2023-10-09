@@ -56,7 +56,19 @@ namespace Garage1._0
             BUS,
             CAR,
             MOTORCYCLE,
-            UNDEFINED
+            UNDEFINED,
+        }
+
+        public enum VehiclesProperties
+        {
+            TYPE,
+            COLOR,
+            REGISTRATIONNUMBER,
+            NUMBEROFWHEELS,
+            NUMBEROFSEATS,
+            DECKS,
+            CARBRAND,
+            ROOF,
         }
 
         public enum VehicleColor
@@ -86,7 +98,7 @@ namespace Garage1._0
             OTHER,
         }
 
-        protected string Roof
+        internal string Roof
         {
             get { return roof; }
 

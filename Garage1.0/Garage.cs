@@ -90,24 +90,30 @@ namespace Garage1._0
 
         internal (object[], bool) SearchMatchingProperty(string vehicleProperty,Func<string,bool> condition)
         {
-            string vehicleproperty;
+            //redudant?
+            string vehicleproperty = vehicleProperty.ToUpper();
             bool itemFound = false;
             int countIndex = 0;
+            int countSlots = 0;
             object[] matchingVehiclesHolder = new object[count];
-            foreach (var item in slots)
+            while (countSlots < this.count)
             {
-                foreach (var property in item.vehicleProperties)
+                foreach (var item in slots)
                 {
-                    //additional condition/function?
-                    vehicleproperty = property.ToString();
-                    vehicleproperty += vehicleproperty.ToUpper();
-                    if (condition(vehicleproperty) == true)
+                    for (int i = 0; i < item.vehicleProperties.Length; i++ )
                     {
-                        
-                        itemFound = true;
-                        matchingVehiclesHolder[countIndex] = item.vehicleProperties;
-                        countIndex++;
+
+                        string temp = item.vehicleProperties[i].ToString();
+                        temp = temp.ToUpper();
+                        if (condition(temp) == true)
+                        {
+
+                            itemFound = true;
+                            matchingVehiclesHolder[countIndex] = item.vehicleProperties[i];
+                            countIndex++;
+                        }
                     }
+
                 }
             }
             object[] matchingVehicles = new object[countIndex];

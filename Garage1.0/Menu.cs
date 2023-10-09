@@ -73,11 +73,11 @@ namespace Garage1._0
                     case '0': // Add a vehicle
                         //Move to method.
                         UI.PrintData("Create a vehicle:\n Enter \"q\" to exit to main menu.\n\"0\" to add a Airplane.\n\"1\" to add a boat.\n\"2\" to add a Bus\n\"3\"to add a car\n\"4\"to add a motorcycle");
-                        int select = Validated.SetInt("Select menu action:", (int s) => { return true ? s>=0 && s <= 4 : false; });
+                        int select = Validated.SetInt("Select menu action:", (int s) => { return true ? s >= 0 && s <= 4 : false; });
                         vehicle = garageInput.CreateVehicle(select);
                         vehicleCreated = true;
                         //garageInput.Add(Input);
-                       // UI.PrintData($"Created a new \"{vehicle.vehicleProperties.Type}\"");
+                        UI.PrintData($"Created a new {garageInput.Type}");
                         break;
 
                     case '1': // Park a vehicle
@@ -88,20 +88,28 @@ namespace Garage1._0
                         else
                         {
                             garageInput.Park(vehicle);
-                            var typeFound =  false;
-                            VehicleProperties thisVehicle;
-                            (typeFound, thisVehicle) = GarageHandler.DecodeVihecleProperties(vehicle);
-                            if(typeFound)
-                                UI.PrintData($"Added \"{thisVehicle.Type}\" to the Garage.");
+                            UI.PrintData($"{garageInput.Type} added to the Garage.");
 
-                           vehicle = null;
+                            //vehicle = null;
                             vehicleCreated = false;
                         }
                         break;
                     case '2': // Remove a vehicle.
                         bool inputFound = false;
-                       // var vehicles = garageInput.GetAllGarageData();
+                        // var vehicles = garageInput.GetAllGarageData();
                         var registrationNumber = Validated.SetString($"Enter the registration number to remove a vehicle from the garage:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+                        object[] proptemp;
+                        //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
+                        (inputFound, proptemp) = garageInput.SearchMatchingProperty(registrationNumber,(s) => true ? s == registrationNumber.ToUpper() : false );
+                        if (inputFound)
+                        {
+                            UI.PrintData($"Vehicle:{proptemp[0]}\n with properties:\n{proptemp[1]},\n{proptemp[2]},\n{proptemp[3]},\n{proptemp[3]}.\n Is now removed from the garage.");
+                            inputFound = garageInput.Remove(registrationNumber); }
+
+                        if (inputFound == false)
+                        {
+                            ConsoleUI.PrintData($"No vehicle with registration number {registrationNumber} found.");
+                        }
                         //foreach (var item in vehicles)
                         //{
                         //Removes one item of input-name, if there are more members with the same name they will remain on the list.
