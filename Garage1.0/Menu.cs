@@ -77,12 +77,10 @@ namespace Garage1._0
                         vehicle = garageInput.CreateVehicle(select);
                         vehicleCreated = true;
                         //garageInput.Add(Input);
-                        UI.PrintData($"Created a new \"{vehicle.Type}\"");
+                       // UI.PrintData($"Created a new \"{vehicle.vehicleProperties.Type}\"");
                         break;
+
                     case '1': // Park a vehicle
-                        
-
-
                         if (vehicleCreated == false)
                         {
                             ConsoleUI.PrintData($"There is no vehicle to park, start with creating a new vehicle(option 0).");
@@ -90,29 +88,40 @@ namespace Garage1._0
                         else
                         {
                             garageInput.Park(vehicle);
-                            UI.PrintData($"Added \"{vehicle.Type}\" to the Garage.");
-                            vehicle = null;
+                            var typeFound =  false;
+                            VehicleProperties thisVehicle;
+                            (typeFound, thisVehicle) = GarageHandler.DecodeVihecleProperties(vehicle);
+                            if(typeFound)
+                                UI.PrintData($"Added \"{thisVehicle.Type}\" to the Garage.");
+
+                           vehicle = null;
                             vehicleCreated = false;
                         }
                         break;
                     case '2': // Remove a vehicle.
                         bool inputFound = false;
-                        var vehicles = garageInput.GetAllGarageData();
+                       // var vehicles = garageInput.GetAllGarageData();
                         var registrationNumber = Validated.SetString($"Enter the registration number to remove a vehicle from the garage:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
-                        foreach (var item in vehicles)
-                        {
-                            //Removes one item of input-name, if there are more members with the same name they will remain on the list.
-                            if (registrationNumber == item.RegistrationNumber)
-                            {
-                                garageInput.Remove(Input);
-                                inputFound = true;
-                                UI.PrintData($"Removed \"{Input}\" from the list.");
-                                break;
-                            }
-                        }
+                        //foreach (var item in vehicles)
+                        //{
+                        //Removes one item of input-name, if there are more members with the same name they will remain on the list.
+
+                        //if (registrationNumber == item.RegistrationNumber)
+                        //{
+
+                        //    inputFound = true;
+                        //    UI.PrintData($"Removed \"{Input}\" from the list.");
+                        //     break;
+                        //}
+                        //}
+                        inputFound = garageInput.Remove(registrationNumber);
                         if (!inputFound)
                         {
-                            UI.PrintData($"{Input} does not exist in the garage.:");
+                            UI.PrintData($"Vehicle with registration number {Input} does not exist in the garage.");
+                        }
+                        else
+                        {
+                            UI.PrintData($"Removed vehicle with registration number {Input} from the garage.");
                         }
                         break;
                     case '3':

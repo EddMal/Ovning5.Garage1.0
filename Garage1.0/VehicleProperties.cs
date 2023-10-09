@@ -31,7 +31,8 @@ namespace Garage1._0
 
         //The handling of this object generates a lot of objects ask and investigate.
         //public virtual object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels }
-        internal  object[] vehicleProperties_;// => new object[] { Color, Type, RegistrationNumber, NumberOfWheels }
+        //better word use characteristics:
+        internal object[] vehicleProperties_;// => new object[] { Color, Type, RegistrationNumber, NumberOfWheels }
         public virtual object[] vehicleProperties
         {
             get
@@ -55,6 +56,7 @@ namespace Garage1._0
             BUS,
             CAR,
             MOTORCYCLE,
+            UNDEFINED
         }
 
         public enum VehicleColor
@@ -209,28 +211,28 @@ namespace Garage1._0
         {
             
             VehicleProperties vehicle = new VehicleProperties();
-            if (Enum.IsDefined(enumType: typeof(VehicleColor), value: vehicleType))
+            if (Enum.IsDefined(enumType: typeof(VehicleType), value: vehicleType))
             { vehicleType = vehicleType.ToUpper();
                 //Bad practise hard coded values.
                 switch (vehicleType)
                 {
                     case "AIRPLANE":
-                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.NumberOfSeats };
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type = vehicleType, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.NumberOfSeats };
                         break;
                     case "BUSS":
-                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.ElectricMotor };
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type = vehicleType, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.ElectricMotor };
                         break;
                     case "BOAT":
-                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.Decks };
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type = vehicleType, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.Decks };
                         break;
                     case "CAR":
-                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.CarBrand };
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type = vehicleType, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.CarBrand };
                         break;
                     case "MOTORCYCLE":
-                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.Roof };
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type = vehicleType, vehicle.RegistrationNumber, vehicle.NumberOfWheels, vehicle.Roof };
                         break;
                     default:
-                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type, vehicle.RegistrationNumber, vehicle.NumberOfWheels };
+                        vehicle.vehicleProperties = new object[] { vehicle.Color, vehicle.Type = vehicleType, vehicle.RegistrationNumber, vehicle.NumberOfWheels };
                         break;             
                 }
             }

@@ -29,14 +29,14 @@ namespace Garage1._0
     //Skapa ett garage med en användar specificerad storlek(storlek sätts genom IHandler)
 
 
-    internal class Garage<T>: IEnumerable<T> where T : Vehicle
+    internal class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         private T[] slots;
         private int count;
-        
+
         public Garage(int capacity)
         {
-            slots = new T[capacity]; 
+            slots = new T[capacity];
         }
 
         internal void Park(T vehicle)
@@ -52,28 +52,70 @@ namespace Garage1._0
             }
         }
 
-        internal void Remove(string registrationNumber)
+        internal bool Remove(string registrationNumber)
         {
-            int countindex = 0;
-            T[] replaceSlotts = new T[count-1];
+            string propertyString;
+            int countIndex = 0;
+            bool itemRemoved = false;
+            T[] replaceSlotts = new T[count - 1];
+            registrationNumber += registrationNumber.ToUpper();
             foreach (var item in slots)
             {
                 foreach (var property in item.vehicleProperties)
                 {
-                    if ((string)property == registrationNumber)
+                    propertyString = property.ToString();
+                    propertyString += propertyString.ToUpper();
+                    if (propertyString == registrationNumber)
                     {
-                        this.count--;
+                        itemRemoved = true;
                     }
                     else
                     {
-                        replaceSlotts[countindex] = item;
+
+                        replaceSlotts[countIndex] = item;
                     }
-                    countindex++;
                 }
+                countIndex++;
+            }
+        
+            if(countIndex < count)
+            {
+            this.count--;
+            slots = replaceSlotts;
             }
 
-            slots = replaceSlotts;
-            
+            return itemRemoved;
+
+        }
+
+        internal (object[], bool) SearchMatchingProperty(string vehicleProperty,Func<string,bool> condition)
+        {
+            string vehicleproperty;
+            bool itemFound = false;
+            int countIndex = 0;
+            object[] matchingVehiclesHolder = new object[count];
+            foreach (var item in slots)
+            {
+                foreach (var property in item.vehicleProperties)
+                {
+                    //additional condition/function?
+                    vehicleproperty = property.ToString();
+                    vehicleproperty += vehicleproperty.ToUpper();
+                    if (condition(vehicleproperty) == true)
+                    {
+                        
+                        itemFound = true;
+                        matchingVehiclesHolder[countIndex] = item.vehicleProperties;
+                        countIndex++;
+                    }
+                }
+            }
+            object[] matchingVehicles = new object[countIndex];
+            foreach (var vehicle in matchingVehiclesHolder)
+            {
+                matchingVehicles = matchingVehiclesHolder;
+            }
+            return (matchingVehicles, itemFound);
         }
 
         public IEnumerator<T> GetEnumerator()

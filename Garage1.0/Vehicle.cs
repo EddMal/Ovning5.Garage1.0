@@ -19,7 +19,12 @@ namespace Garage1._0
         //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
 
         // VehicleProperties vehicleProperties { get; set; }
-        public object[] vehicleProperties;// => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
+
+
+        //public object[] vehicleProperties;// => new object[] { Color, Type, RegistrationNumber, NumberOfWheels };
+
+        internal object[] vehicleProperties;// => new object[] { Color, Type, RegistrationNumber, NumberOfWheels }
+
 
         //public Vehicle(VehicleProperties vehicleProperties)
         //{
@@ -39,7 +44,7 @@ namespace Garage1._0
         //}
         public virtual object[] GetVihecleProperties()
         { // Bad practise string input.
-            object[] specifiedproperties = VehicleProperties.SpecifiedVihecleProperties("VEHICLE");
+            object[] specifiedproperties = VehicleProperties.SpecifiedVihecleProperties("UNDEFINEDVEHICLE");
             return specifiedproperties;
         }
 

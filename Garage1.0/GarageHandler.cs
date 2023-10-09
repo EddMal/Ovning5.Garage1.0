@@ -1,11 +1,12 @@
 ﻿using System.Drawing;
 using static Garage1._0.VehicleProperties;
+//using static Garage1._0.VehicleProperties;
 using static Garage1._0.VehicleSubclasses;
 using static Garage1._0.VehicleSubclasses.Airplane;
 
 namespace Garage1._0
 {
-    internal class GarageHandler//:VehicleProperties
+    internal class GarageHandler :VehicleProperties
     {
         private Garage<Vehicle> garage;
 
@@ -20,10 +21,67 @@ namespace Garage1._0
             garage.Park(v);
         }
 
-        internal void Remove(string registrationNumber)
+        internal bool Remove(string registrationNumber)
         { 
-            garage.Remove(registrationNumber);
+            bool vehicleRemoved = false;
+            vehicleRemoved = garage.Remove(registrationNumber);
+            return vehicleRemoved;
         }
+
+        internal (object[], bool) SearchMatchingProperty(string vehicleProperty, Func<string, bool> condition)
+        {
+            var matchFound = false;
+            object[] matchingVehicles;
+            (matchingVehicles, matchFound) = garage.SearchMatchingProperty(vehicleProperty, condition);
+            return (matchingVehicles, matchFound);
+        }
+
+        internal static (bool, VehicleProperties) DecodeVihecleProperties(Vehicle vehicle)
+        {
+            VehicleProperties thisVehicle = new VehicleProperties();
+            var matchFound = false;
+            string vehicleType = vehicle.vehicleProperties[0].ToString();
+            vehicleType.ToUpper();
+            //while (matchFound==false)
+            //{
+            if (Enum.IsDefined(enumType: typeof(VehicleType), value: vehicleType) == true)
+            {
+                matchFound = true;
+                //return (matchFound, $"{property}");
+                thisVehicle.vehicleProperties = SpecifiedVihecleProperties(vehicleType);
+            }
+
+            return (matchFound, thisVehicle);
+
+            //}
+        }
+        ////Overload develop..
+        //internal static (bool,VehicleProperties) DecodeVihecleProperties(object[] vihecle, string property)
+        //{
+        //    VehicleProperties thisVehicle = new VehicleProperties();
+        //    var matchFound = false;
+        //    property.ToUpper();
+        //    //while (matchFound==false)
+        //    //{
+        //        if (Enum.IsDefined(enumType: typeof(VehicleType), value: property) == true)
+        //        {
+        //            matchFound = true;
+        //        //return (matchFound, $"{property}");
+        //         thisVehicle.vehicleProperties = SpecifiedVihecleProperties(property);
+        //        }
+
+        //        return (matchFound, thisVehicle);
+               
+        //    //}
+        //}
+
+        //internal (IEnumerable<Vehicle>, bool) SearchMatchingProperties(string vehicleProperty, Func<string, bool> condition)
+        //{
+        //    var matchFound = false;
+        //    IEnumerable<Vehicle> matchingVehicles;
+        //    (matchingVehicles, matchFound) = garage.SearchMatchingProperty(vehicleProperty, condition);
+        //    return (matchingVehicles, matchFound);
+        //}
 
         internal List<Vehicle> GetAllGarageData()
         {
@@ -139,11 +197,11 @@ namespace Garage1._0
             
            // new object[] carProperties = new VehicleProperties();
 
-            var Type = "car";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
-            var Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
-            var RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
-            var NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
-            var CarBrand = Validated.SetStringCaseInsesitive("Valid brands are: \nVolvo,\nSaab,\nFiat,\nToyota,\nNissan,\nRenault\nFord,\nAudi\nVolkswagen,\nIf the brand is not represented enter other\nEnter the brand of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(CarBrands), value: s); });
+             Type = "car";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
+             Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
+             RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+             NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
+             CarBrand = Validated.SetStringCaseInsesitive("Valid brands are: \nVolvo,\nSaab,\nFiat,\nToyota,\nNissan,\nRenault\nFord,\nAudi\nVolkswagen,\nIf the brand is not represented enter other\nEnter the brand of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(CarBrands), value: s); });
 
             object[] carProperties = new object[] { Color, Type, RegistrationNumber, NumberOfWheels, CarBrand };
             Car car = new Car(carProperties);

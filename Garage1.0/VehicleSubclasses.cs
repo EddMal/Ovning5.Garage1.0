@@ -9,15 +9,23 @@ namespace Garage1._0
 {
     internal class VehicleSubclasses
     {
-        public class UnknownVehicle : Vehicle//, IVehicle
+        public class UndefinedVehicle : Vehicle//, IVehicle
         {
             //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels};
             //public UnknownVehicle(object[] vehicleProperties) : base(vehicleProperties)
             //{
             //    this.vehicleProperties = vehicleProperties;
             //}
-        }
+            public override object[] GetVihecleProperties()
+            { // Bad practise string input.
+                object[] specifiedproperties = VehicleProperties.SpecifiedVihecleProperties("UNDEFINDED");
+                return specifiedproperties;
+            }
+            public UndefinedVehicle(object[] vehicleProperties) : base(vehicleProperties)
+            {
 
+            }
+        }
         public class Airplane : Vehicle//, IVehicle
         {
             //public override object[] vehicleProperties => new object[] { Color, Type, RegistrationNumber, NumberOfWheels, NumberOfSeats };
