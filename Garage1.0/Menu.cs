@@ -98,17 +98,24 @@ namespace Garage1._0
                         bool inputFound = false;
                         // var vehicles = garageInput.GetAllGarageData();
                         var registrationNumber = Validated.SetString($"Enter the registration number to remove a vehicle from the garage:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
-                        object[] proptemp;
-                        //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
-                        (inputFound, proptemp) = garageInput.SearchMatchingProperty(registrationNumber,(s) => true ? s == registrationNumber.ToUpper() : false );
-                        if (inputFound)
-                        {
-                            UI.PrintData($"Vehicle:{proptemp[0]}\n with properties:\n{proptemp[1]},\n{proptemp[2]},\n{proptemp[3]},\n{proptemp[3]}.\n Is now removed from the garage.");
-                            inputFound = garageInput.Remove(registrationNumber); }
+                        object[][] matchingVehicles;
+                        int[] matchingVehiclesID;
 
-                        if (inputFound == false)
+                        //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
+                        //Redudant use of out parameters for task, overload of this function is more suitable.
+                        (inputFound, matchingVehicles, matchingVehiclesID) = garageInput.SearchMatchingProperty(registrationNumber,(s) => true ? s == registrationNumber.ToUpper() : false );
+                        foreach (var item in matchingVehicles)
                         {
-                            ConsoleUI.PrintData($"No vehicle with registration number {registrationNumber} found.");
+                            if (inputFound)
+                            {
+                                UI.PrintData($"Vehicle:{item[0]}\n with properties:\n{item[1]},\n{item[2]},\n{item[3]},\n{item[3]}.\n Is now removed from the garage.");
+                                inputFound = garageInput.Remove(registrationNumber);
+                            }
+
+                            if (inputFound == false)
+                            {
+                                ConsoleUI.PrintData($"No vehicle with registration number {registrationNumber} found.");
+                            }
                         }
                         //foreach (var item in vehicles)
                         //{

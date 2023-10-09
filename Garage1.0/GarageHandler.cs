@@ -29,12 +29,13 @@ namespace Garage1._0
             return vehicleRemoved;
         }
 
-        internal (bool, object[]) SearchMatchingProperty(string vehicleProperty, Func<string, bool> condition)
+        internal (bool, object[][], int[]) SearchMatchingProperty(string vehicleProperty, Func<string, bool> condition)
         {
             var matchFound = false;
-            object[] matchingVehicles;
-            (matchingVehicles, matchFound) = garage.SearchMatchingProperty(vehicleProperty, condition);
-            return  (matchFound, matchingVehicles );
+            object[][] matchingVehicles;
+            int[]matchingVehiclesID;
+            (matchFound, matchingVehicles, matchingVehiclesID) = garage.SearchMatchingProperty(vehicleProperty, condition);
+            return  (matchFound, matchingVehicles, matchingVehiclesID);
         }
 
         public virtual (bool, VehicleProperties) ReadVihecleProperties(Vehicle vehicle)

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static Garage1._0.VehicleProperties;
 
 namespace Garage1._0
 {
@@ -88,40 +89,46 @@ namespace Garage1._0
 
         }
 
-        internal (object[], bool) SearchMatchingProperty(string vehicleProperty,Func<string,bool> condition)
+        internal (bool, object[][], int[]) SearchMatchingProperty(string vehicleProperty,Func<string,bool> condition)
         {
             //redudant?
             string vehicleproperty = vehicleProperty.ToUpper();
             bool itemFound = false;
             int countIndex = 0;
             int countSlots = 0;
-            object[] matchingVehiclesHolder = new object[count];
+            int[] matchingVehiclesID = new int[count-1];
+            object[][] matchingVehiclesHolder = new object[count-1][];
+            
             while (countSlots < this.count)
             {
                 foreach (var item in slots)
                 {
-                    for (int i = 0; i < item.vehicleProperties.Length; i++ )
+                    if (item != null)
                     {
-
-                        string temp = item.vehicleProperties[i].ToString();
-                        temp = temp.ToUpper();
-                        if (condition(temp) == true)
+                        for (int i = 0; i < item.vehicleProperties.Length; i++)
                         {
 
-                            itemFound = true;
-                            matchingVehiclesHolder[countIndex] = item.vehicleProperties[i];
-                            countIndex++;
+                            string temp = item.vehicleProperties[i].ToString();
+                            temp = temp.ToUpper();
+                            if (condition(temp) == true)
+                            {
+
+                                itemFound = true;
+                                matchingVehiclesHolder[countIndex] = item.vehicleProperties;
+                                countIndex++;
+                                matchingVehiclesID.Append(countSlots);
+                            }
                         }
                     }
-
+                    countSlots++;
                 }
             }
-            object[] matchingVehicles = new object[countIndex];
-            foreach (var vehicle in matchingVehiclesHolder)
-            {
-                matchingVehicles = matchingVehiclesHolder;
-            }
-            return (matchingVehicles, itemFound);
+            //object[] matchingVehicles = new object[countIndex];
+            //foreach (var vehicle in matchingVehiclesHolder)
+            //{
+            //    matchingVehicles = matchingVehiclesHolder;
+            //}
+            return ( itemFound, matchingVehiclesHolder, matchingVehiclesID);
         }
 
         public IEnumerator<T> GetEnumerator()
