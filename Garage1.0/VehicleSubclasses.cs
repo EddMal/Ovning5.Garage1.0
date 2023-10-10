@@ -18,7 +18,7 @@ namespace Garage1._0
             //}
             public override object[] GetVihecleProperties()
             { // Bad practise string input.
-                object[] specifiedproperties = VehicleProperties.SpecifiedVihecleProperties("UNDEFINDED");
+                object[] specifiedproperties = VehicleProperties.SpecifiedVihecleProperties("UNDEFINDEDVEHICLE");
                 return specifiedproperties;
             }
             public UndefinedVehicle(object[] vehicleProperties) : base(vehicleProperties)

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Design;
+﻿using System;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Linq;
 using static Garage1._0.VehicleProperties;
@@ -14,7 +15,7 @@ namespace Garage1._0
 
         protected string[] registrationNumbers;
         protected int count;
-        
+
 
         public GarageHandler(int capacity)
         {
@@ -29,7 +30,7 @@ namespace Garage1._0
         }
 
         internal bool Remove(string registrationNumber)
-        { 
+        {
             bool vehicleRemoved = false;
             vehicleRemoved = garage.Remove(registrationNumber);
             return vehicleRemoved;
@@ -39,56 +40,80 @@ namespace Garage1._0
         {
             var matchFound = false;
             object[][] matchingVehicles;
-            int[]matchingVehiclesID;
+            int[] matchingVehiclesID;
             (matchFound, matchingVehicles, matchingVehiclesID) = garage.SearchMatchingProperty(vehicleProperty, condition);
-            return  (matchFound, matchingVehicles, matchingVehiclesID);
+            return (matchFound, matchingVehicles, matchingVehiclesID);
         }
 
-        internal (bool, object[][], int[]) SearchMatchingProperty(object[] vehicleProperty)
+        internal (bool, object[][]) SearchMatchingProperty(object[] vehicleProperties)
         {
             var matchFound = false;
             object[][] matchingVehicles;
             object[][] matchingVehiclestemp;
             matchingVehiclestemp = new object[count][];
+
             int[] matchingVehiclesIDtemp;
             matchingVehiclesIDtemp = new int[count];
             int[] matchingVehiclesID;
+            matchingVehiclesID = new int[count];
+            
+
+            if (vehicleProperties[0] != null)
+            {
+                // matching ID redudant create overload.
+                (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(vehicleProperties[0].ToString(), (s) => true ? s == vehicleProperties[0].ToString().ToUpper() : false);
+            }
+
+            (matchFound,matchingVehicles) = CompareVehicles(matchingVehiclestemp, vehicleProperties);
+           
+
+            return (matchFound, matchingVehicles);
+
+        }
+
+        internal (bool, object[][]) CompareVehicles(object[][] matchingVehiclestemp, object[] vehicleProperties)
+        {
+            object[][] matchingVehicles;
+            //Handel better:
+            matchingVehicles = new object[matchingVehiclestemp.Length][];
+            bool matchFound = false;
             int countindex = 0;
 
-            foreach ( var property in vehicleProperty )
+            if (matchingVehiclestemp != null)
             {
-                if (property != null)
+                foreach (var vehicle in matchingVehiclestemp)
                 {
-                    (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(property.ToString(), (s) => true ? s == property.ToString().ToUpper() : false);
-
-                }
-                foreach (var propertytemp in matchingVehiclestemp)
-                {
-                    if (propertytemp != null)
+                    if (vehicle != null)
                     {
-                        for (int i = 0; i < propertytemp.Length; i++)
+                        for (int i = 0; i < vehicleProperties.Length; i++)
                         {
-                            if (matchingVehicles[countindex][i] != null)
+                            for (int i2 = 0; i2 < vehicleProperties.Length; i2++)
                             {
-                                if (propertytemp[i] != matchingVehicles[countindex][i])
+                                if (vehicle[i2] != null && vehicleProperties[i2] != null)
                                 {
-                                    matchFound = false;
+                                    if (vehicle[i] != vehicleProperties[i2])
+                                    {
+                                        matchFound = false;
+                                    }
                                 }
                             }
                         }
-                        if(matchFound == true) 
-                        {
-                            matchingVehicles.Append(matchingVehiclestemp);
-                            matchingVehiclesID.Append(matchingVehiclesIDtemp);
-                        }
+
                     }
+                    if (matchFound == true)
+                    {
+                        matchingVehicles.Append(matchingVehiclestemp);
+
+                    }
+                    countindex++;
                 }
-                countindex++;
-
-
-
             }
-            return (matchFound, matchingVehicles, matchingVehiclesID);
+            if (matchingVehicles == null)
+            {
+                matchFound = false;
+            }
+
+            return (matchFound, matchingVehicles);
         }
 
         public virtual (bool, VehicleProperties) ReadVihecleProperties(Vehicle vehicle)
@@ -298,7 +323,7 @@ namespace Garage1._0
             Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the bus:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
             RegistrationNumber = Validated.SetStringCaseInsesitive("Enter a unique registration number with valid length(span:6 to 20):", (string s) => { return true ? (s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s)) : false; });
             NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
-            ElectricMotor = Validated.SetStringCaseInsesitive("The bus must have an electric motor:", (string s) => { return true ? s == "YES" || s == "NO" : false; });
+            ElectricMotor = Validated.SetStringCaseInsesitive("Does the bus have an electric motor answer (yes or no):", (string s) => { return true ? s == "YES" || s == "NO" : false; });
 
 
             object[] busProperties = new object[] { Type, Color, RegistrationNumber, NumberOfWheels, ElectricMotor };
@@ -341,6 +366,94 @@ namespace Garage1._0
             Motorcycle motorcycle = new Motorcycle(motorcycleProperties);
 
             return motorcycle;
+        }
+
+        public virtual UndefinedVehicle CreateUndefinedVehicle()
+        {
+            //Really bad long method and not at all optimized code, makes the angles cry(and me), change.
+
+            // new object[] carProperties = new VehicleProperties();
+            object[] undefinedVehicleProperties = new object[5];
+            int countObjects = 0;
+            Type = Validated.SetStringCaseInsesitive("Enter search parameters, proceed to next search parameter without making input by pressing q.\nType of the vehicle valid types are \"Airplane, Boat, Bus, Car, and motorcycle\"\n:", (string s) => { return true ? Enum.IsDefined(enumType: typeof(VehicleType) , value: s) || s == "Q" : false; });
+            if (Type.ToUpper() != "Q")
+            {
+                undefinedVehicleProperties[countObjects] = Type;
+                countObjects++;
+            }
+            Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the car or q to proceed to next search parameter:\n", (string s) => { return true ? Enum.IsDefined(enumType: typeof(VehicleColor), value: s) || s == "Q":false; });
+            if (Color.ToUpper() != "Q")
+            {
+                undefinedVehicleProperties[countObjects] = Color;
+                countObjects++;
+            }
+            RegistrationNumber = Validated.SetStringCaseInsesitive("Enter registration number with valid length(span:6 to 20) or q to proceed to next input parameter:\n", (string s) => { return true ? ((s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s))) || s == "Q" : false; });
+            if (RegistrationNumber.ToUpper() != "Q")
+            {
+                undefinedVehicleProperties[countObjects] = RegistrationNumber;
+                countObjects++;
+            }
+            var NumberWheels = Validated.SetStringCaseInsesitive("Enter the number of wheels or q to proceed to next input parameter.\n", (wheels) => { return true ? (wheels != "" || wheels == "Q" ): false; });
+            if (NumberWheels.ToUpper() != "Q")
+            {
+                undefinedVehicleProperties[countObjects] = NumberWheels;
+                countObjects++;
+            }
+            string select = Validated.SetStringCaseInsesitive("\nIf you know the type of the vehicle, you can use searchoptions for their special properties.\n Enter 0 Airplane, 1 Boat, 2 Bus, 3 Car, 4 Motorcycle, q to proceed without input\n:", (string s) => { return true ? s == "0" || s == "1" || s == "2" || s == "3" || s == "4" || s == "Q" : false; });
+
+            var NumberSeats ="";
+            switch (select.ToUpper())
+            {
+                case "0":// "AIRPLANE":
+                    NumberSeats = Validated.SetStringCaseInsesitive("Enter the number of seats", (seats) => { return true ? (seats != "" || seats == "Q") : false; });
+                    if (NumberSeats.ToUpper() != "Q")
+                    {
+                        undefinedVehicleProperties[countObjects] = NumberSeats;
+                        countObjects++;
+                    }
+                    break;
+                case "1":// "BOAT":
+                    var Deck = Validated.SetStringCaseInsesitive("Enter the number of decks", (decks) => { return true ? decks != "" || decks == "Q" : false; });
+                    if (Deck.ToUpper() != "Q")
+                    {
+                        undefinedVehicleProperties[countObjects] = Deck;
+                        countObjects++;
+                    }
+                    break;
+                case "2":// "BUS":
+                    ElectricMotor = Validated.SetStringCaseInsesitive("Does the bus have an electric motor:", (string s) => { return true ? s == "YES" || s == "NO" || s == "Q" : false; });
+                    if (ElectricMotor.ToUpper() != "Q")
+                    {
+                        undefinedVehicleProperties[countObjects] = ElectricMotor;
+                        countObjects++;
+                    }
+                    break;
+                case "3"://"CAR":
+                    CarBrand = Validated.SetStringCaseInsesitive("Valid brands are: \nVolvo,\nSaab,\nFiat,\nToyota,\nNissan,\nRenault\nFord,\nAudi\nVolkswagen,\nIf the brand is not represented enter other\nEnter the brand of the car:", (string s) => { return true ? Enum.IsDefined(enumType: typeof(CarBrands), value: s) || s == "Q":false; });
+                    if (CarBrand.ToUpper() != "Q")
+                    {
+                        undefinedVehicleProperties[countObjects] = CarBrand;
+                        countObjects++;
+                    }
+                    break;
+                case "4":// "MOTORCYCLE":
+                    Roof = Validated.SetStringCaseInsesitive("The information about wheter the motorcycle has a roof is mandatory Enter yes or no:", (string s) => { return true ? s == "YES" || s == "NO" || s == "Q" : false; });
+                    if (Roof.ToUpper() != "Q")
+                    {
+                        undefinedVehicleProperties[countObjects] = Roof;
+                        countObjects++;
+                    }
+                    break;
+                case "Q":
+                    break;
+                default:
+                    break;
+            }
+            
+                    
+            UndefinedVehicle undefinedVehicle = new UndefinedVehicle(undefinedVehicleProperties);
+
+            return undefinedVehicle;
         }
 
 

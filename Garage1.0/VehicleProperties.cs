@@ -51,12 +51,12 @@ namespace Garage1._0
 
         public enum VehicleType 
         { 
-            AIRPLANE,
-            BOAT,
-            BUS,
-            CAR,
-            MOTORCYCLE,
-            UNDEFINED,
+            AIRPLANE = 0,
+            BOAT = 1,
+            BUS = 2,
+            CAR = 3,
+            MOTORCYCLE = 4,
+            UNDEFINEDVEHICLE = 5,
         }
 
         public enum VehiclesProperties
@@ -158,9 +158,9 @@ namespace Garage1._0
 
             set
             {
-                if (value != "YES")
+                if (value != "YES" || value != "NO")
                 {
-                    throw new ArgumentNullException("There must me an electric motor on the vehicle.");
+                    throw new ArgumentNullException("Information about electric motor on the vehicle is obligatory.");
                 }
 
                 electricMotor = value;

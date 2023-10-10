@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static Garage1._0.VehicleProperties;
 
 namespace Garage1._0
@@ -121,23 +122,31 @@ namespace Garage1._0
                         }
                         break;
                     case '3'://Search vihecles with matching properties 
-                        bool inputFound = false;
+                        inputFound = false;
                         // var vehicles = garageInput.GetAllGarageData();
-                        var registrationNumber = Validated.SetString($"Enter the registration number to remove a vehicle from the garage:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
-                        object[][] matchingVehicles;
-                        int[] matchingVehiclesID;
+                        //Change hardcoded.
+                        object[] searchpreoperties;
+                        searchpreoperties = new object[5];
+
+     //Continue here // searchpreoperties = garageInput.CreateUndefinedVehicle()
 
                         //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
                         //Redudant use of out parameters for task, overload of this function is more suitable.
-                        (inputFound, matchingVehicles, matchingVehiclesID) = garageInput.SearchMatchingProperty(registrationNumber, (s) => true ? s == registrationNumber.ToUpper() : false);
-                        string subproperty;
+                        (inputFound, matchingVehicles) = garageInput.SearchMatchingProperty(searchpreoperties);
+                        
                         foreach (var item in matchingVehicles)
                         {
-                            if (inputFound)
+                            if (item != null)
                             {
-                                switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
-                                UI.PrintData($"Vehicle: {item[0]}\n with properties:\nColor: {item[1]},\nRegistration number: {item[2]},\nNumber of Wheels: {item[3]},\n{subproperty}: {item[4]}.\n Is now removed from the garage.");
-                                
+                                for (int i = 0; i < item.Length; i++)
+                                {
+                                    if (inputFound)
+                                    {
+                                        switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
+                                        UI.PrintData($"\nMatching vehicle found: {item[0]}\n with properties:\nColor: {item[1]},\nRegistration number: {item[2]},\nNumber of Wheels: {item[3]},\n{subproperty}: {item[4]}.\n.");
+
+                                    }
+                                }
                             }
                         }
                         if (inputFound == false)
