@@ -96,8 +96,8 @@ namespace Garage1._0
             bool itemFound = false;
             int countIndex = 0;
             int countSlots = 0;
-            int[] matchingVehiclesID = new int[count-1];
-            object[][] matchingVehiclesHolder = new object[count-1][];
+            int[] matchingVehiclesID = new int[count];
+            object[][] matchingVehiclesHolder = new object[count][];
             
             while (countSlots < this.count)
             {

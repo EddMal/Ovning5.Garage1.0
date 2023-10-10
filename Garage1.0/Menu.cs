@@ -104,11 +104,13 @@ namespace Garage1._0
                         //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
                         //Redudant use of out parameters for task, overload of this function is more suitable.
                         (inputFound, matchingVehicles, matchingVehiclesID) = garageInput.SearchMatchingProperty(registrationNumber,(s) => true ? s == registrationNumber.ToUpper() : false );
+                        string subproperty;
                         foreach (var item in matchingVehicles)
                         {
                             if (inputFound)
                             {
-                                UI.PrintData($"Vehicle:{item[0]}\n with properties:\n{item[1]},\n{item[2]},\n{item[3]},\n{item[3]}.\n Is now removed from the garage.");
+                                switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
+                                UI.PrintData($"Vehicle:{item[0]}\n with properties:\nColor:{item[1]},\nRegistration number:{item[2]},\nNumber of Wheels{item[3]},\n{item[3]}.\n Is now removed from the garage.");
                                 inputFound = garageInput.Remove(registrationNumber);
                             }
 
@@ -117,18 +119,7 @@ namespace Garage1._0
                                 ConsoleUI.PrintData($"No vehicle with registration number {registrationNumber} found.");
                             }
                         }
-                        //foreach (var item in vehicles)
-                        //{
-                        //Removes one item of input-name, if there are more members with the same name they will remain on the list.
 
-                        //if (registrationNumber == item.RegistrationNumber)
-                        //{
-
-                        //    inputFound = true;
-                        //    UI.PrintData($"Removed \"{Input}\" from the list.");
-                        //     break;
-                        //}
-                        //}
                         inputFound = garageInput.Remove(registrationNumber);
                         if (!inputFound)
                         {
