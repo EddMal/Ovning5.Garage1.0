@@ -127,8 +127,8 @@ namespace Garage1._0
                         //Change hardcoded.
                         object[] searchpreoperties;
                         searchpreoperties = new object[5];
-
-     //Continue here // searchpreoperties = garageInput.CreateUndefinedVehicle()
+                        
+                        searchpreoperties = garageInput.CreateUndefinedVehicle();
 
                         //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
                         //Redudant use of out parameters for task, overload of this function is more suitable.

@@ -76,7 +76,7 @@ namespace Garage1._0
             object[][] matchingVehicles;
             //Handel better:
             matchingVehicles = new object[matchingVehiclestemp.Length][];
-            bool matchFound = false;
+            bool matchFound = true;
             int countindex = 0;
 
             if (matchingVehiclestemp != null)
@@ -85,18 +85,19 @@ namespace Garage1._0
                 {
                     if (vehicle != null)
                     {
+                        //Address use of object "vehicleProperties" change garageproperties object[] to ensure movable code.
                         for (int i = 0; i < vehicleProperties.Length; i++)
                         {
-                            for (int i2 = 0; i2 < vehicleProperties.Length; i2++)
-                            {
-                                if (vehicle[i2] != null && vehicleProperties[i2] != null)
+                            //for (int i2 = 0; i2 < vehicleProperties.Length; i2++)
+                           // {
+                                if (vehicle[i] != null || vehicleProperties[i] != null)
                                 {
-                                    if (vehicle[i] != vehicleProperties[i2])
+                                    if (vehicle[i] != vehicleProperties[i])
                                     {
                                         matchFound = false;
                                     }
                                 }
-                            }
+                            //}
                         }
 
                     }
@@ -111,6 +112,10 @@ namespace Garage1._0
             if (matchingVehicles == null)
             {
                 matchFound = false;
+            }
+            else
+            {
+                matchFound = true;
             }
 
             return (matchFound, matchingVehicles);
@@ -368,7 +373,7 @@ namespace Garage1._0
             return motorcycle;
         }
 
-        public virtual UndefinedVehicle CreateUndefinedVehicle()
+        public virtual object[] CreateUndefinedVehicle()
         {
             //Really bad long method and not at all optimized code, makes the angles cry(and me), change.
 
@@ -376,29 +381,31 @@ namespace Garage1._0
             object[] undefinedVehicleProperties = new object[5];
             int countObjects = 0;
             Type = Validated.SetStringCaseInsesitive("Enter search parameters, proceed to next search parameter without making input by pressing q.\nType of the vehicle valid types are \"Airplane, Boat, Bus, Car, and motorcycle\"\n:", (string s) => { return true ? Enum.IsDefined(enumType: typeof(VehicleType) , value: s) || s == "Q" : false; });
+            //Nasty code if cases and countObjexts should be optimized.
             if (Type.ToUpper() != "Q")
             {
                 undefinedVehicleProperties[countObjects] = Type;
-                countObjects++;
+                
             }
+            countObjects++;
             Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the car or q to proceed to next search parameter:\n", (string s) => { return true ? Enum.IsDefined(enumType: typeof(VehicleColor), value: s) || s == "Q":false; });
             if (Color.ToUpper() != "Q")
             {
                 undefinedVehicleProperties[countObjects] = Color;
-                countObjects++;
             }
+            countObjects++;
             RegistrationNumber = Validated.SetStringCaseInsesitive("Enter registration number with valid length(span:6 to 20) or q to proceed to next input parameter:\n", (string s) => { return true ? ((s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s))) || s == "Q" : false; });
             if (RegistrationNumber.ToUpper() != "Q")
             {
                 undefinedVehicleProperties[countObjects] = RegistrationNumber;
-                countObjects++;
             }
+            countObjects++;
             var NumberWheels = Validated.SetStringCaseInsesitive("Enter the number of wheels or q to proceed to next input parameter.\n", (wheels) => { return true ? (wheels != "" || wheels == "Q" ): false; });
             if (NumberWheels.ToUpper() != "Q")
             {
                 undefinedVehicleProperties[countObjects] = NumberWheels;
-                countObjects++;
             }
+            countObjects++;
             string select = Validated.SetStringCaseInsesitive("\nIf you know the type of the vehicle, you can use searchoptions for their special properties.\n Enter 0 Airplane, 1 Boat, 2 Bus, 3 Car, 4 Motorcycle, q to proceed without input\n:", (string s) => { return true ? s == "0" || s == "1" || s == "2" || s == "3" || s == "4" || s == "Q" : false; });
 
             var NumberSeats ="";
@@ -451,9 +458,9 @@ namespace Garage1._0
             }
             
                     
-            UndefinedVehicle undefinedVehicle = new UndefinedVehicle(undefinedVehicleProperties);
+            //UndefinedVehicle undefinedVehicle = new UndefinedVehicle(undefinedVehicleProperties);
 
-            return undefinedVehicle;
+            return undefinedVehicleProperties;
         }
 
 
