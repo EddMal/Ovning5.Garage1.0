@@ -40,7 +40,7 @@ namespace Garage1._0
             slots = new T[capacity];
         }
 
-        internal void Park(T vehicle)
+        internal int Park(T vehicle)
         {
             if (count <= slots.Length)
             {
@@ -49,8 +49,10 @@ namespace Garage1._0
             }
             else
             {
+                //Move usage of console to a higher level and return string.
                 ConsoleUI.PrintData($"Garage is full.");
             }
+            return count;
         }
 
         internal bool Remove(string registrationNumber)
@@ -58,25 +60,32 @@ namespace Garage1._0
             string propertyString;
             int countIndex = 0;
             bool itemRemoved = false;
-            T[] replaceSlotts = new T[count - 1];
+            T[] replaceSlotts = new T[slots.Length];
             registrationNumber += registrationNumber.ToUpper();
-            foreach (var item in slots)
+            while (countIndex < this.count)
             {
-                foreach (var property in item.vehicleProperties)
+                foreach (var item in slots)
                 {
-                    propertyString = property.ToString();
-                    propertyString += propertyString.ToUpper();
-                    if (propertyString == registrationNumber)
+                    if (item != null)
                     {
-                        itemRemoved = true;
-                    }
-                    else
-                    {
+                        for (int i = 0; i < item.vehicleProperties.Length; i++)
+                        {
 
-                        replaceSlotts[countIndex] = item;
+                            propertyString = item.vehicleProperties[i].ToString();
+                            propertyString = propertyString.ToUpper();
+                            if (propertyString == registrationNumber)
+                            {
+                                itemRemoved = true;
+                            }
+                            else
+                            {
+
+                                replaceSlotts[countIndex] = item;
+                            }
+                        }
                     }
+                    countIndex++;
                 }
-                countIndex++;
             }
         
             if(countIndex < count)

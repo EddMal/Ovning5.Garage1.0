@@ -110,7 +110,7 @@ namespace Garage1._0
                             if (inputFound)
                             {
                                 switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
-                                UI.PrintData($"Vehicle:{item[0]}\n with properties:\nColor:{item[1]},\nRegistration number:{item[2]},\nNumber of Wheels{item[3]},\n{item[3]}.\n Is now removed from the garage.");
+                                UI.PrintData($"Vehicle: {item[0]}\n with properties:\nColor: {item[1]},\nRegistration number: {item[2]},\nNumber of Wheels: {item[3]},\n{subproperty}: {item[3]}.\n Is now removed from the garage.");
                                 inputFound = garageInput.Remove(registrationNumber);
                             }
 
@@ -118,16 +118,6 @@ namespace Garage1._0
                             {
                                 ConsoleUI.PrintData($"No vehicle with registration number {registrationNumber} found.");
                             }
-                        }
-
-                        inputFound = garageInput.Remove(registrationNumber);
-                        if (!inputFound)
-                        {
-                            UI.PrintData($"Vehicle with registration number {Input} does not exist in the garage.");
-                        }
-                        else
-                        {
-                            UI.PrintData($"Removed vehicle with registration number {Input} from the garage.");
                         }
                         break;
                     case '3':

@@ -7,19 +7,24 @@ using static Garage1._0.VehicleSubclasses.Airplane;
 
 namespace Garage1._0
 {
-    internal class GarageHandler :VehicleProperties
+    internal class GarageHandler : VehicleProperties
     {
         private Garage<Vehicle> garage;
+
+        protected string[] registrationNumbers;
+        protected int count;
+        
 
         public GarageHandler(int capacity)
         {
             garage = new Garage<Vehicle>(capacity);
+            registrationNumbers = new string[capacity];
             UI.PrintData($"New garage created with the capacaty of {capacity} slots.");
         }
 
         internal void Park(Vehicle v)
         {
-            garage.Park(v);
+            count = garage.Park(v);
         }
 
         internal bool Remove(string registrationNumber)
@@ -147,6 +152,38 @@ namespace Garage1._0
                     return createdVehicle;
         }
 
+        internal virtual bool  RegistrationNumberControl(string registrationNumber)
+        {
+            
+            bool validRegNr = true;
+            string regNr = "\nRegistration number verified.";
+            foreach (var registrationNr in registrationNumbers) 
+            {
+                if (registrationNr != null || registrationNr == "")
+                {
+                    if (registrationNr.ToUpper() == registrationNumber)
+                    { 
+                        validRegNr = false;
+                        regNr = "\nRegistration number is not unique.";
+                        break;
+                    }
+                    else
+                    {
+                        registrationNumbers[count] = registrationNumber;
+                        break;
+                    }
+                }
+                else
+                {
+                    registrationNumbers[count] = registrationNumber;
+                    break;
+                }
+            }
+            //Consider a better solution for handling of the printing of messages:
+            UI.PrintData($"{regNr}");
+            return validRegNr;
+        }
+
         public virtual Airplane CreateAirplane()
         {
 
@@ -162,7 +199,7 @@ namespace Garage1._0
             //If VehicleProperties use is unwanted the parameters for Color etcetera can be replaced with local var.
             Type = "Airplane";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
             Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
-            RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+            RegistrationNumber = Validated.SetStringCaseInsesitive("Enter a unique registration number with valid length(span:6 to 20):", (string s) => { return true ? (s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s)) : false; });
             NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
             NumberOfSeats = Validated.SetInt("Enter the number of seats. Input Must be entered in numbers and be less than 25", (seats) => { return true ? seats <= 25 && seats >= 0 : false; });
 
@@ -185,7 +222,7 @@ namespace Garage1._0
 
             Type = "Boat";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
             Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the airplane:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
-            RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+            RegistrationNumber = Validated.SetStringCaseInsesitive("Enter a unique registration number with valid length(span:6 to 20):", (string s) => { return true ? (s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s)) : false; });
             NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
             Decks = Validated.SetInt("Enter the number of decks. Input Must be entered in numbers and must be within range 0 to 2", (decks) => { return true ? decks < 0 && decks > 2 : false; });
 
@@ -211,7 +248,7 @@ namespace Garage1._0
 
             Type = "Bus";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
             Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the bus:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
-            RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+            RegistrationNumber = Validated.SetStringCaseInsesitive("Enter a unique registration number with valid length(span:6 to 20):", (string s) => { return true ? (s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s)) : false; });
             NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
             ElectricMotor = Validated.SetStringCaseInsesitive("The bus must have an electric motor:", (string s) => { return true ? s == "YES" || s == "NO" : false; });
 
@@ -229,7 +266,7 @@ namespace Garage1._0
 
              Type = "car";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
              Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
-             RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+             RegistrationNumber = Validated.SetStringCaseInsesitive("Enter a unique registration number with valid length(span:6 to 20):", (string s) => { return true ? (s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s)) : false; });
              NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
              CarBrand = Validated.SetStringCaseInsesitive("Valid brands are: \nVolvo,\nSaab,\nFiat,\nToyota,\nNissan,\nRenault\nFord,\nAudi\nVolkswagen,\nIf the brand is not represented enter other\nEnter the brand of the car:", (string s) => { return Enum.IsDefined(enumType: typeof(CarBrands), value: s); });
 
@@ -246,7 +283,7 @@ namespace Garage1._0
 
             Type = "Motorcycle";// Note to self why does this not work to set property? Validated.SetString(Vehicleproperties.Type, "Enter the type of the vehicle, Car, Boat etcetera:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleType), value: s); });
             Color = Validated.SetStringCaseInsesitive("Valid colors are Green,\nRed,\nBlue,\nYellow,\nBlack,\nWhite,\nGrey,\nBeige,\nOther.\nEnter the color of the:", (string s) => { return Enum.IsDefined(enumType: typeof(VehicleColor), value: s); });
-            RegistrationNumber = Validated.SetString("Valid length for registration number is 6 to 20:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+            RegistrationNumber = Validated.SetStringCaseInsesitive("Enter a unique registration number with valid length(span:6 to 20):", (string s) => { return true ? (s.Length < 20 && s.Length > 5) && (RegistrationNumberControl(s)) : false; });
             NumberOfWheels = Validated.SetInt("Enter the number of wheels. Input Must be entered in numbers and be less than 50", (wheels) => { return true ? wheels < 50 && wheels >= 0 : false; });
             Roof = Validated.SetStringCaseInsesitive("The information about wheter the motorcycle has a roof is mandatory Enter yes or no:", (string s) => { return true ? s == "YES" || s == "NO" : false; });
 
