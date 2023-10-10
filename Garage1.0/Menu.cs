@@ -110,7 +110,7 @@ namespace Garage1._0
                             if (inputFound)
                             {
                                 switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
-                                UI.PrintData($"Vehicle: {item[0]}\n with properties:\nColor: {item[1]},\nRegistration number: {item[2]},\nNumber of Wheels: {item[3]},\n{subproperty}: {item[3]}.\n Is now removed from the garage.");
+                                UI.PrintData($"Vehicle: {item[0]}\n with properties:\nColor: {item[1]},\nRegistration number: {item[2]},\nNumber of Wheels: {item[3]},\n{subproperty}: {item[4]}.\n Is now removed from the garage.");
                                 inputFound = garageInput.Remove(registrationNumber);
                             }
 
@@ -120,29 +120,31 @@ namespace Garage1._0
                             }
                         }
                         break;
-                    case '3':
-                        //bool inputFound = false;
+                    case '3'://Search vihecles with matching properties 
+                        bool inputFound = false;
+                        // var vehicles = garageInput.GetAllGarageData();
+                        var registrationNumber = Validated.SetString($"Enter the registration number to remove a vehicle from the garage:", (string s) => { return true ? s.Length < 20 && s.Length > 5 : false; });
+                        object[][] matchingVehicles;
+                        int[] matchingVehiclesID;
 
-                        //foreach (var item in garageInput)
-                        //{
-                        //    //Removes one item of input-name, if there are more members with the same name they will remain on the list.
-                        //    if (Input == item)
-                        //    {
-                        //        garageInput.Remove(Input);
-                        //        inputFound = true;
-                        //        UI.PrintData($"Removed \"{Input}\" from the list.");
-                        //        break;
-                        //    }
-                        //}
-                        //if (!inputFound)
+                        //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
+                        //Redudant use of out parameters for task, overload of this function is more suitable.
+                        (inputFound, matchingVehicles, matchingVehiclesID) = garageInput.SearchMatchingProperty(registrationNumber, (s) => true ? s == registrationNumber.ToUpper() : false);
+                        string subproperty;
+                        foreach (var item in matchingVehicles)
+                        {
+                            if (inputFound)
+                            {
+                                switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
+                                UI.PrintData($"Vehicle: {item[0]}\n with properties:\nColor: {item[1]},\nRegistration number: {item[2]},\nNumber of Wheels: {item[3]},\n{subproperty}: {item[4]}.\n Is now removed from the garage.");
+                                
+                            }
+                        }
+                        if (inputFound == false)
                         {
                             UI.PrintData($"No vehicle with macthing properties was found in the garage.\nProperties:");
-                            //LOOP properties of vehicles
-                            //{
-                            ///UI.PrintData($" The \"{properties[i]}\");
-                            //}
-                            ///UI.PrintData($" does not exist in the list.");
                         }
+
                         break;
                     case '4':
                         //bool inputFound = false;

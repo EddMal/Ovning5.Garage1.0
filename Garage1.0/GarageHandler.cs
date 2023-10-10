@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Design;
 using System.Drawing;
+using System.Linq;
 using static Garage1._0.VehicleProperties;
 //using static Garage1._0.VehicleProperties;
 using static Garage1._0.VehicleSubclasses;
@@ -41,6 +42,53 @@ namespace Garage1._0
             int[]matchingVehiclesID;
             (matchFound, matchingVehicles, matchingVehiclesID) = garage.SearchMatchingProperty(vehicleProperty, condition);
             return  (matchFound, matchingVehicles, matchingVehiclesID);
+        }
+
+        internal (bool, object[][], int[]) SearchMatchingProperty(object[] vehicleProperty)
+        {
+            var matchFound = false;
+            object[][] matchingVehicles;
+            object[][] matchingVehiclestemp;
+            matchingVehiclestemp = new object[count][];
+            int[] matchingVehiclesIDtemp;
+            matchingVehiclesIDtemp = new int[count];
+            int[] matchingVehiclesID;
+            int countindex = 0;
+
+            foreach ( var property in vehicleProperty )
+            {
+                if (property != null)
+                {
+                    (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(property.ToString(), (s) => true ? s == property.ToString().ToUpper() : false);
+
+                }
+                foreach (var propertytemp in matchingVehiclestemp)
+                {
+                    if (propertytemp != null)
+                    {
+                        for (int i = 0; i < propertytemp.Length; i++)
+                        {
+                            if (matchingVehicles[countindex][i] != null)
+                            {
+                                if (propertytemp[i] != matchingVehicles[countindex][i])
+                                {
+                                    matchFound = false;
+                                }
+                            }
+                        }
+                        if(matchFound == true) 
+                        {
+                            matchingVehicles.Append(matchingVehiclestemp);
+                            matchingVehiclesID.Append(matchingVehiclesIDtemp);
+                        }
+                    }
+                }
+                countindex++;
+
+
+
+            }
+            return (matchFound, matchingVehicles, matchingVehiclesID);
         }
 
         public virtual (bool, VehicleProperties) ReadVihecleProperties(Vehicle vehicle)
