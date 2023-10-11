@@ -22,6 +22,12 @@ namespace Garage1._0
             garage = new Garage<Vehicle>(capacity);
             registrationNumbers = new string[capacity];
             UI.PrintData($"New garage created with the capacaty of {capacity} slots.");
+
+            string pouplate = Validated.SetStringCaseInsesitive("If you want to populate garage from start: enter yes or no:\n", (string s) => { return true ? s == "YES" || s == "NO" : false; });
+            if (pouplate.ToUpper() == "YES")
+            {
+                PopulateGarageCars();
+            }
         }
 
         internal void Park(Vehicle v)
@@ -56,12 +62,19 @@ namespace Garage1._0
             matchingVehiclesIDtemp = new int[count];
             int[] matchingVehiclesID;
             matchingVehiclesID = new int[count];
-            
 
+            int validvehicle = 0;
+
+            while (vehicleProperties[validvehicle] != null)
+            {
+                validvehicle++;
+            } 
+            
+            
             if (vehicleProperties[0] != null)
             {
                 // matching ID redudant create overload.
-                (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(vehicleProperties[0].ToString(), (s) => true ? s == vehicleProperties[0].ToString().ToUpper() : false);
+                (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(vehicleProperties[validvehicle].ToString(), (s) => true ? s == vehicleProperties[0].ToString().ToUpper() : false);
             }
 
             (matchFound,matchingVehicles) = CompareVehicles(matchingVehiclestemp, vehicleProperties);
@@ -76,13 +89,14 @@ namespace Garage1._0
             object[][] matchingVehicles;
             //Handel better:
             matchingVehicles = new object[matchingVehiclestemp.Length][];
-            bool matchFound = true;
             int countindex = 0;
+            bool matchFound;
 
             if (matchingVehiclestemp != null)
             {
                 foreach (var vehicle in matchingVehiclestemp)
                 {
+                    matchFound = true;
                     if (vehicle != null)
                     {
                         //Address use of object "vehicleProperties" change garageproperties object[] to ensure movable code.
@@ -352,6 +366,23 @@ namespace Garage1._0
             Car car = new Car(carProperties);
 
             return car;
+        }
+
+        public virtual void PopulateGarageCars()
+        {
+
+
+            object[][] initiate = GarageProperties.PopulateGarage();
+            
+            var vehicleType = "car";
+
+            for (int i = 0; i < 6; i++)
+            {
+                object[] carProperties = new object[] { vehicleType, initiate[i][0], initiate[i][1], initiate[i][2], initiate[i][3] };
+                Car car = new Car(carProperties);
+                Park(car);
+            }
+            UI.PrintData("Populated garage with {count} {vehicleType}");
         }
 
         public virtual Motorcycle CreateMotorcycle()

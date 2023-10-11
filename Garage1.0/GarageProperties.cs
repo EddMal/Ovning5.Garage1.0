@@ -32,5 +32,32 @@ namespace Garage1._0
             int capacity = Validated.SetInt("Set garage capacity, minimum capacity is 10 slots max capacity is 80 slots.", (valid) => { return true ? valid < 80 && valid > 9 : false; });
             return capacity;
         }
+
+        public static object[][] PopulateGarage()
+        {
+            object[][] initiate;
+            object[] initiateTemp;
+            initiate = new object[6][];
+            string[] number = {"3","4","5","6","7","8"};
+
+            for (int i = 0; i < 6; i++)
+            {
+                if (i < 5)
+                {
+                    initiateTemp = new object[]{ "grey", 4, "xxx-12" + $"{number[i]},Volvo"};
+                    initiate[i] = initiateTemp;
+
+
+                }
+                else
+                {
+                    initiateTemp = new object[] { "grey", 4, "xxx-12" + $"{number[i]},Saab"};
+                    initiate[i] = initiateTemp;
+                }
+            }
+            return initiate;
+            
+
+        }
     }
 }
