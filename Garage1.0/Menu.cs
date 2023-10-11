@@ -133,23 +133,19 @@ namespace Garage1._0
                         //Redudant use of functionparameter or string parameter, overload of this function is more suitable.
                         //Redudant use of out parameters for task, overload of this function is more suitable.
                         (inputFound, matchingVehicles) = garageInput.SearchMatchingProperty(searchpreoperties);
-                        
-                        foreach (var item in matchingVehicles)
+                        if (inputFound)
                         {
-                            if (item != null)
+                            UI.PrintData("\nVehicles matching search parameters:\n");
+                            foreach (var item in matchingVehicles)
                             {
-                                for (int i = 0; i < item.Length; i++)
+                                if (item != null)
                                 {
-                                    if (inputFound)
-                                    {
-                                        switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
-                                        UI.PrintData($"\nMatching vehicle found: {item[0]}\n with properties:\nColor: {item[1]},\nRegistration number: {item[2]},\nNumber of Wheels: {item[3]},\n{subproperty}: {item[4]}.\n.");
-
-                                    }
+                                    switch (item[0].ToString().ToUpper()) { case "AIRPLANE": subproperty = "Number of seats"; break; case "BOAT": subproperty = "Decks"; break; case "BUS": subproperty = "Electric Motor"; break; case "CAR": subproperty = "CarBrand"; break; case "MOTORCYCLE": subproperty = "Roof"; break; default: subproperty = "error"; break; }
+                                    UI.PrintData($"|Type: {item[0]}| Color: {item[1]}|Registration number: {item[2]}|Number of Wheels: {item[3]}|{subproperty}: {item[4]}|\n");
                                 }
                             }
                         }
-                        if (inputFound == false)
+                        else
                         {
                             UI.PrintData($"No vehicle with macthing properties was found in the garage.\nProperties:");
                         }
