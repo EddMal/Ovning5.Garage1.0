@@ -44,14 +44,14 @@ namespace Garage1._0
             {
                 if (i < 5)
                 {
-                    initiateTemp = new object[]{ "grey", 4, "xxx-12" + $"{number[i]},Volvo"};
+                    initiateTemp = new object[]{ "grey", 4, "xxx-12" + $"{number[i]}","Volvo"};
                     initiate[i] = initiateTemp;
 
 
                 }
                 else
                 {
-                    initiateTemp = new object[] { "grey", 4, "xxx-12" + $"{number[i]},Saab"};
+                    initiateTemp = new object[] { "grey", 4, "xxx-12" + $"{number[i]}","Saab"};
                     initiate[i] = initiateTemp;
                 }
             }
