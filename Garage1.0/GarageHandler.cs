@@ -104,16 +104,23 @@ namespace Garage1._0
                         //Address use of object "vehicleProperties" change garageproperties object[] to ensure movable code.
                         for (int i = 0; i < vehicle.Length; i++)
                         {
-                            string[] stringtempvehicles = Array.ConvertAll(matchingVehiclestemp[i], x => x.ToString());
-                            string[] stringtempproperties = Array.ConvertAll(matchingVehiclestemp[i], x => x.ToString());
+                           
                             for (int i2 = 0; i2 < vehicleProperties.Length; i2++)
                             {
                                 matchFound = false;
-                                if (vehicle[i] != null || vehicleProperties[i2] != null)
+                                string stringTempSearchProperties = "x"; 
+                                string stringTempVehiclProps = vehicle[i].ToString();
+
+                                if (vehicleProperties[i2] != null)
                                 {
-                                    
-                                    if (vehicleprop != null || searcproperty != null)
-                                    if (vehicleprop.ToUpper() == searcproperty.ToUpper())
+                                     stringTempSearchProperties = vehicleProperties[i2].ToString();
+                                }
+
+
+
+                        if (stringTempVehiclProps != null || stringTempSearchProperties != null)
+ //continue here assigning does not work                               {
+                                    if (stringTempVehiclProps!.ToUpper() == stringTempSearchProperties!.ToUpper())
                                     {
                                         matchFound = true;
                                     }
