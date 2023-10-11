@@ -65,16 +65,16 @@ namespace Garage1._0
 
             int validvehicle = 0;
 
-            while (vehicleProperties[validvehicle] != null)
+            while (vehicleProperties[validvehicle] == null)
             {
                 validvehicle++;
             } 
             
             
-            if (vehicleProperties[0] != null)
+            if (vehicleProperties[validvehicle] != null)
             {
                 // matching ID redudant create overload.
-                (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(vehicleProperties[validvehicle].ToString(), (s) => true ? s == vehicleProperties[0].ToString().ToUpper() : false);
+                (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(vehicleProperties[validvehicle].ToString(), (s) => true ? s == vehicleProperties[validvehicle].ToString().ToUpper() : false);
             }
 
             (matchFound,matchingVehicles) = CompareVehicles(matchingVehiclestemp, vehicleProperties);
@@ -90,28 +90,29 @@ namespace Garage1._0
             //Handel better:
             matchingVehicles = new object[matchingVehiclestemp.Length][];
             int countindex = 0;
-            bool matchFound;
+            bool matchFound= false;
 
             if (matchingVehiclestemp != null)
             {
                 foreach (var vehicle in matchingVehiclestemp)
                 {
-                    matchFound = true;
+                    
                     if (vehicle != null)
                     {
                         //Address use of object "vehicleProperties" change garageproperties object[] to ensure movable code.
-                        for (int i = 0; i < vehicleProperties.Length; i++)
+                        for (int i = 0; i < vehicle.Length; i++)
                         {
-                            //for (int i2 = 0; i2 < vehicleProperties.Length; i2++)
-                           // {
-                                if (vehicle[i] != null || vehicleProperties[i] != null)
+                            for (int i2 = 0; i2 < vehicleProperties.Length; i2++)
+                            {
+                                matchFound = false;
+                                if (vehicle[i] != null || vehicleProperties[i2] != null)
                                 {
-                                    if (vehicle[i] != vehicleProperties[i])
+                                    if (vehicle[i] == vehicleProperties[i])
                                     {
-                                        matchFound = false;
+                                        matchFound = true;
                                     }
                                 }
-                            //}
+                            }
                         }
 
                     }
@@ -382,7 +383,7 @@ namespace Garage1._0
                 Car car = new Car(carProperties);
                 Park(car);
             }
-            UI.PrintData("Populated garage with {count} {vehicleType}");
+            UI.PrintData($"Populated garage with {this.count} {vehicleType}");
         }
 
         public virtual Motorcycle CreateMotorcycle()

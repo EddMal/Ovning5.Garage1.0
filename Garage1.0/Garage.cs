@@ -144,14 +144,20 @@ namespace Garage1._0
         {
             foreach (var item in slots)
             {
-                //additional condition/function?
-                yield return item;
+               // if (item != null) // if added here in the lowest there is no need to do it on a higher level.
+                //{
+                    //additional condition/function?
+                    yield return item;
+                //}
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
+            // if (item != null)
+            //{
             return GetEnumerator();
+            //}
         }
     }
 }
