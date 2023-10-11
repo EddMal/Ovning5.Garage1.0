@@ -35,6 +35,7 @@ namespace Garage1._0
 
         public static object[][] PopulateGarage()
         {
+            //should use a vehicle with vehicleProperties instead of new object to assure the order is correct.
             object[][] initiate;
             object[] initiateTemp;
             initiate = new object[6][];
@@ -44,14 +45,14 @@ namespace Garage1._0
             {
                 if (i < 5)
                 {
-                    initiateTemp = new object[]{ "grey", 4, "xxx-12" + $"{number[i]}","Volvo"};
+                    initiateTemp = new object[]{ "grey", "xxx-12" + $"{number[i]}", 4, "Volvo"};
                     initiate[i] = initiateTemp;
 
 
                 }
                 else
                 {
-                    initiateTemp = new object[] { "grey", 4, "xxx-12" + $"{number[i]}","Saab"};
+                    initiateTemp = new object[] { "grey", "xxx-12" + $"{number[i]}", 4, "Saab"};
                     initiate[i] = initiateTemp;
                 }
             }

@@ -89,6 +89,8 @@ namespace Garage1._0
             object[][] matchingVehicles;
             //Handel better:
             matchingVehicles = new object[matchingVehiclestemp.Length][];
+
+            
             int countindex = 0;
             bool matchFound= false;
 
@@ -102,12 +104,16 @@ namespace Garage1._0
                         //Address use of object "vehicleProperties" change garageproperties object[] to ensure movable code.
                         for (int i = 0; i < vehicle.Length; i++)
                         {
+                            string[] stringtempvehicles = Array.ConvertAll(matchingVehiclestemp[i], x => x.ToString());
+                            string[] stringtempproperties = Array.ConvertAll(matchingVehiclestemp[i], x => x.ToString());
                             for (int i2 = 0; i2 < vehicleProperties.Length; i2++)
                             {
                                 matchFound = false;
                                 if (vehicle[i] != null || vehicleProperties[i2] != null)
                                 {
-                                    if (vehicle[i] == vehicleProperties[i])
+                                    
+                                    if (vehicleprop != null || searcproperty != null)
+                                    if (vehicleprop.ToUpper() == searcproperty.ToUpper())
                                     {
                                         matchFound = true;
                                     }
