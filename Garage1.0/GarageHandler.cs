@@ -73,15 +73,20 @@ namespace Garage1._0
             } while (vehicleProperties[validvehicle] == null && validvehicle < vehicleProperties.Length-1);
 
 
-                if (vehicleProperties[validvehicle] != null)
+            if (vehicleProperties[validvehicle] != null)
             {
                 // matching ID redudant remove/create overload.
                 (matchFound, matchingVehiclestemp, matchingVehiclesIDtemp) = garage.SearchMatchingProperty(vehicleProperties[validvehicle].ToString(), (s) => true ? s == vehicleProperties[validvehicle].ToString().ToUpper() : false);
-            }
+            
 
             (matchFound,matchingVehicles) = CompareVehicles(matchingVehiclestemp, vehicleProperties);
-           
 
+            }
+            else
+            {
+                matchingVehicles = null;
+                matchFound = false;
+            }
             return (matchFound, matchingVehicles);
 
         }
@@ -139,7 +144,7 @@ namespace Garage1._0
                         }
 
                     }
-                    
+
                     if (validatedProperties[1] == validatedProperties[0])
                     {
                         matchingVehicles[countIndex] = vehicle;
@@ -147,16 +152,24 @@ namespace Garage1._0
                         countIndex++;
 
                     }
+                    else
+                    {
+                        validatedProperties[1] = 0;
+                    }
                 }
             }
-            //does not work
-            if (matchingVehicles == null)
+            matchFound = false;
+            foreach (var vehicle in matchingVehicles)
             {
-                matchFound = false;
-            }
-            else
-            {
-                matchFound = true;
+                if(vehicle != null)
+                foreach (var prop in vehicle)
+                {
+                    if (prop != null)
+                    {
+                        matchFound = true;
+                        break;
+                    }
+                }
             }
 
             return (matchFound, matchingVehicles);
